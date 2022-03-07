@@ -10,8 +10,8 @@ import 'package:lingowall/Core/model/word_model.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
 import 'package:lingowall/UI/Cell/WordCell.dart';
 
-class ListController extends StatelessWidget {
-  ListController({Key? key}) : super(key: key);
+class ListViewWidget extends StatelessWidget {
+  ListViewWidget({Key? key}) : super(key: key);
 
   final logic = Get.put(ListLogic());
 

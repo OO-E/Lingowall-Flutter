@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:lingowall/UI/Cell/WordCell.dart';
 import 'focus_logic.dart';
 
-class FocusController extends StatelessWidget {
-  FocusController({Key? key}) : super(key: key);
+class FocusViewWidget extends StatelessWidget {
+  FocusViewWidget({Key? key}) : super(key: key);
 
   final logic = Get.put(FocusLogic());
 

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lingowall/Core/service/login_service.dart';
-import 'package:lingowall/Helper/UserPreferances.dart';
+import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
 import 'package:lingowall/UI/list/list_view.dart';
 import 'dart:async';

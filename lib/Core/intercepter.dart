@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:lingowall/Helper/UserPreferances.dart';
+import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:get/get.dart' as Get;
 import 'package:lingowall/UI/login/login_view.dart';
 

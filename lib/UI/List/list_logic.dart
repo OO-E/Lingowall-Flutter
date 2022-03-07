@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:lingowall/Core/model/word_model.dart';
 import 'package:lingowall/Core/service/word_service.dart';
-import 'package:lingowall/Helper/UserPreferances.dart';
+import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
 import 'dart:async';
 import 'dart:core';

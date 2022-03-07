@@ -1,7 +1,7 @@
 import 'package:lingowall/Core/model/word_model.dart';
 import 'package:lingowall/Core/model/base_response.dart';
 import 'package:lingowall/Core/model/base_listresponse.dart';
-import 'package:lingowall/Helper/UserPreferances.dart';
+import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:lingowall/Core/http_service.dart';
 import 'dart:convert';
 import 'dart:core';
