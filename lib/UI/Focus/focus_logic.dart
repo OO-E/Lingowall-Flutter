@@ -17,7 +17,7 @@ class FocusLogic extends GetxController {
     super.onReady();
 
     error.stream.listen((event) {
-      StaticMethods.instance.showErrorMessage("", event);
+      StaticMethods.instance.showSnackMessage("", event);
     });
 
     getFocusList();
@@ -41,6 +41,7 @@ class FocusLogic extends GetxController {
       this.error.add(error);
     });
   }
+
 
 
 }

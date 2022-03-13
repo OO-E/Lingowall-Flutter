@@ -21,7 +21,8 @@ class UserPreferences {
     this.getStorage.write(UserPreferancesTitle.TOKEN, token);
   }
   String getUserToken() {
-    return this.getStorage.read(UserPreferancesTitle.TOKEN);
+    var token = this.getStorage.read(UserPreferancesTitle.TOKEN) ?? "";
+    return  token;
   }
 
 }

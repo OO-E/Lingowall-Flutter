@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lingowall/Delegate/UIDelegate.dart';
 import 'updateword_logic.dart';
 import 'package:lingowall/Core/model/word_model.dart';
 
-class UpdateWordController extends GetView<UpdateWordLogic> {
+class UpdateWordController extends StatelessWidget {
   final logic = Get.put(UpdateWordLogic());
+  FocusNode _focusNode = FocusNode();
 
   UpdateWordController({Key? key}) : super(key: key);
+
+  void trigger(WordModel item, UIDelegate? delegate) {
+    logic.item.add(item);
+    logic.delegate = delegate;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,115 +34,162 @@ class UpdateWordController extends GetView<UpdateWordLogic> {
             })
           ],
         ),
-        body: SafeArea(
-            child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Color.fromRGBO(143, 148, 251, .2),
-                                  blurRadius: 20.0,
-                                  offset: Offset(0, 10))
-                            ]),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              decoration: const BoxDecoration(
-                                  border: Border(
-                                      bottom:
-                                          BorderSide(color: Colors.black12))),
-                              child: TextField(
-                                controller: logic.wordController,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  labelText: "Word",
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              decoration: const BoxDecoration(
-                                  border: Border(
-                                      bottom:
-                                          BorderSide(color: Colors.black12))),
-                              child: TextField(
-                                controller: logic.definationController,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Defination",
-                                    hintStyle:
-                                        TextStyle(color: Colors.grey[400])),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              decoration: const BoxDecoration(
-                                  border: Border(
-                                      bottom:
-                                          BorderSide(color: Colors.black12))),
-                              child: TextField(
-                                controller: logic.exampleController,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Example",
-                                    hintStyle:
-                                        TextStyle(color: Colors.grey[400])),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              child: TextField(
-                                controller: logic.meanController,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Mean",
-                                    hintStyle:
-                                        TextStyle(color: Colors.grey[400])),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Container(
-                          width: double.infinity,
+        body: SafeArea(child: SingleChildScrollView(
+          child: Obx(() {
+            return Container(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      children: <Widget>[
+                        const SizedBox(
                           height: 50,
-                          child: TextButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.deepOrangeAccent),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white)),
-                            child: Text('Update'.tr),
-                            onPressed: () {},
-                          )),
-                      const SizedBox(
-                        height: 70,
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              wordTextField(context),
+                              definationTextField(context),
+                              exampleTextField(context),
+                              meanTextField(context)
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        updateButton(context),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        deleteButton(context)
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          }),
+        )));
+  }
+
+  Container deleteButton(BuildContext context) {
+    return Container(
+        width: double.infinity,
+        height: 50,
+        child: TextButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+                Theme.of(context).colorScheme.error),
+            foregroundColor: MaterialStateProperty.all<Color>(
+              Theme.of(context).colorScheme.primaryVariant,
             ),
           ),
-        )));
+          child: Text('Delete'.tr),
+          onPressed: () {
+            Get.defaultDialog(
+                title: "",
+                content: Text("Do you want to delete this word"),
+                radius: 5,
+                textConfirm: "Confirm",
+                textCancel: "Cancel",
+                onConfirm: () {
+                  logic.fetchDelete();
+                  Get.back();
+                },
+                onCancel: () {},
+                confirmTextColor:
+                    Theme.of(context).colorScheme.secondaryVariant);
+          },
+        ));
+  }
+
+  Container updateButton(BuildContext context) {
+    return Container(
+        width: double.infinity,
+        height: 50,
+        child: TextButton(
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Colors.deepOrangeAccent),
+            foregroundColor: MaterialStateProperty.all<Color>(
+              Theme.of(context).colorScheme.primaryVariant,
+            ),
+          ),
+          child: Text('Update'.tr),
+          onPressed: () {
+            logic.fetchUpdate();
+          },
+        ));
+  }
+
+  Container definationTextField(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: TextField(
+        style: Theme.of(context).textTheme.headline3,
+        controller: logic.definationController,
+        decoration: InputDecoration(
+          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          border: InputBorder.none,
+          labelText: "Defination",
+          errorText: logic.definationError.value,
+        ),
+      ),
+    );
+  }
+
+  Container exampleTextField(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: TextField(
+        style: Theme.of(context).textTheme.headline3,
+        controller: logic.exampleController,
+        decoration: InputDecoration(
+          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          border: InputBorder.none,
+          labelText: "Example",
+          errorText: logic.exampleError.value,
+        ),
+      ),
+    );
+  }
+
+  Container meanTextField(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: TextField(
+        style: Theme.of(context).textTheme.headline3,
+        controller: logic.meanController,
+        decoration: InputDecoration(
+            labelStyle:
+                TextStyle(color: Theme.of(context).colorScheme.secondary),
+            border: InputBorder.none,
+            labelText: "Mean",
+            errorText: logic.meanError.value),
+      ),
+    );
+  }
+
+  Container wordTextField(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: TextField(
+        controller: logic.wordController,
+        style: Theme.of(context).textTheme.headline3,
+        decoration: InputDecoration(
+          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          border: InputBorder.none,
+          labelText: "Word",
+          errorText: logic.wordError.value,
+        ),
+      ),
+    );
   }
 }

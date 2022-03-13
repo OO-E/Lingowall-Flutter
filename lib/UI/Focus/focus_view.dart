@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lingowall/Delegate/UIDelegate.dart';
 import 'package:lingowall/UI/Cell/WordCell.dart';
-import 'focus_logic.dart';
+import 'package:lingowall/UI/Focus/focus_logic.dart';
 
-class FocusViewWidget extends StatelessWidget {
+class FocusViewWidget extends StatelessWidget with UIDelegate {
   FocusViewWidget({Key? key}) : super(key: key);
 
   final logic = Get.put(FocusLogic());
@@ -24,12 +25,17 @@ class FocusViewWidget extends StatelessWidget {
                         () => ListView.builder(
                         itemCount: logic.wordItems.length,
                         itemBuilder: (context, index) {
-                          return WordCell(item: logic.wordItems.value[index]);
+                          return WordCell(item: logic.wordItems.value[index],delegate: this,);
                         }),
                   )),
             ],
           ),
         ));
+  }
+
+  @override
+  void onRefreshPage() {
+    logic.getFocusList();
   }
 
 }

@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:lingowall/Delegate/UIDelegate.dart';
 import 'package:lingowall/UI/add_and_update/add_and_update_view.dart';
-import 'package:lingowall/model/MockModel.dart';
 import 'package:number_paginator/number_paginator.dart';
-import 'package:lingowall/UI/login/login_view.dart';
-import 'list_logic.dart';
-import 'package:lingowall/Core/model/word_model.dart';
-import 'package:lingowall/Helper/StaticMethods.dart';
+import 'package:lingowall/UI/List/list_logic.dart';
 import 'package:lingowall/UI/Cell/WordCell.dart';
 
-class ListViewWidget extends StatelessWidget {
+class ListViewWidget extends StatelessWidget with UIDelegate {
   ListViewWidget({Key? key}) : super(key: key);
 
   final logic = Get.put(ListLogic());
@@ -28,7 +24,7 @@ class ListViewWidget extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                Get.to(AddAndUpdateController(ViewType.add));
+                Get.to(AddAndUpdateController());
               },
             )
           ],
@@ -40,9 +36,10 @@ class ListViewWidget extends StatelessWidget {
                 return Container(
                     height: 50,
                     child: NumberPaginator(
-                      buttonUnselectedForegroundColor: Colors.black,
-                      buttonSelectedBackgroundColor: Colors.blue,
-                      buttonSelectedForegroundColor: Colors.white,
+
+                      buttonUnselectedForegroundColor: Theme.of(context).colorScheme.primaryVariant,
+                      buttonSelectedBackgroundColor: Theme.of(context).colorScheme.secondary,
+                      buttonSelectedForegroundColor: Theme.of(context).colorScheme.secondaryVariant,
                       height: 50,
                       numberPages: logic.pageCount.value,
                       onPageChange: (int index) {
@@ -56,12 +53,19 @@ class ListViewWidget extends StatelessWidget {
                 () => ListView.builder(
                     itemCount: logic.wordItems.length,
                     itemBuilder: (context, index) {
-                      return WordCell(item: logic.wordItems.value[index]);
+                      return WordCell(item: logic.wordItems.value[index], delegate: this,);
                     }),
               )),
             ],
           ),
         ));
   }
+
+  @override
+  void onRefreshPage() {
+    logic.getWords(0);
+    logic.getWordsCount();
+  }
+
 }
 

@@ -1,7 +1,6 @@
 import 'package:lingowall/Core/model/word_model.dart';
 import 'package:lingowall/Core/model/base_response.dart';
 import 'package:lingowall/Core/model/base_listresponse.dart';
-import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:lingowall/Core/http_service.dart';
 import 'dart:convert';
 import 'dart:core';
@@ -44,6 +43,59 @@ class WordService {
     final data = BaseResponseModel<String>.onlyJsonParse(
         json.decode(result.toString()));
     print("ooeee");
+    if (data.success) {
+      return data.result ?? "ok";
+    } else {
+      throw data.error;
+    }
+  }
+
+  Future<String> fetchNewWord(String word, String meaning, String defination, String example) async {
+
+    final result = await service.request(
+        url: "/word",
+        method: Method.POST,
+        params: {"word": word, "meaning": meaning, "defination": defination, "example": example});
+
+    final data = BaseResponseModel<String>.onlyJsonParse(
+        json.decode(result.toString()));
+
+    if (data.success) {
+      return data.result ?? "ok";
+    } else {
+      throw data.error;
+    }
+  }
+
+
+  Future<String> fetchUpdateWord(String id, String word, String meaning, String defination, String example) async {
+
+    final result = await service.request(
+        url: "/word",
+        method: Method.PUT,
+        params: {"id": id, "word": word, "meaning": meaning, "defination": defination, "example": example});
+
+    final data = BaseResponseModel<String>.onlyJsonParse(
+        json.decode(result.toString()));
+
+    if (data.success) {
+      return data.result ?? "ok";
+    } else {
+      throw data.error;
+    }
+  }
+
+
+  Future<String> fetchDeleteWord(String id) async {
+
+    final result = await service.request(
+        url: "/word",
+        method: Method.DELETE,
+        params: {"id": id});
+
+    final data = BaseResponseModel<String>.onlyJsonParse(
+        json.decode(result.toString()));
+
     if (data.success) {
       return data.result ?? "ok";
     } else {

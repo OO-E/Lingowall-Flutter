@@ -1,14 +1,13 @@
 import 'package:get/get.dart';
 import 'package:lingowall/Core/model/word_model.dart';
 import 'package:lingowall/Core/service/word_service.dart';
-import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
 import 'dart:async';
 import 'dart:core';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 
-class ListLogic extends GetxController {
+class ListLogic extends GetxController   {
 
   WordService service = WordService();
   var error = StreamController<String>();
@@ -20,7 +19,7 @@ class ListLogic extends GetxController {
 
     super.onReady();
     error.stream.listen((event) {
-      StaticMethods.instance.showErrorMessage("", event);
+      StaticMethods.instance.showSnackMessage("", event);
     });
 
     getWords(0);
@@ -54,4 +53,12 @@ class ListLogic extends GetxController {
     });
 
   }
+
+  @override
+  void refresh() {
+    super.refresh();
+    getWords(0);
+    getWordsCount();
+  }
+
 }
