@@ -5,13 +5,15 @@ import 'package:lingowall/UI/List/list_view.dart';
 import 'package:get/get.dart';
 import 'package:lingowall/UI/add_and_update/add_and_update_view.dart';
 import 'package:flutter/material.dart';
+import 'package:lingowall/UI/setting/setting_view.dart';
 
 class TabbarViewWidget extends StatelessWidget {
 
-  var _currentIndex = 0.obs;
+  var _currentIndex = 3.obs;
   var firstScreen = ListViewWidget();
   var secondScreen = AddAndUpdateController();
   var thirdScreen = FocusViewWidget();
+  var fourthScreen = SettingWidget();
 
   Widget getScreen(int index) {
     if (index == 0) {
@@ -21,7 +23,7 @@ class TabbarViewWidget extends StatelessWidget {
     } else if (index == 2) {
       return thirdScreen;
     } else {
-      return firstScreen;
+      return fourthScreen;
     }
   }
 
@@ -47,9 +49,9 @@ class TabbarViewWidget extends StatelessWidget {
         return BottomNavyBar(
           backgroundColor: Theme.of(context).colorScheme.onSecondary,
           selectedIndex: _currentIndex.value,
-          showElevation: true,
-          itemCornerRadius: 24,
-          curve: Curves.easeIn,
+          showElevation: false,
+          itemCornerRadius: 5,
+          curve: Curves.ease,
           onItemSelected: (index) {
             _currentIndex.value = index;
             refreshPage(index);

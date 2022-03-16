@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 final ThemeData darkTheme = ThemeData(
   appBarTheme: AppBarTheme(
-    titleTextStyle: TextStyle(
+    iconTheme: const IconThemeData(
+        color: Colors.white
+    ),
+    titleTextStyle: const TextStyle(
       fontWeight: FontWeight.bold,
       color: Colors.white,
       fontSize: 18

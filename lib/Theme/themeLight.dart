@@ -2,8 +2,16 @@ import 'package:lingowall/Extension/Color.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData lightTheme = ThemeData(
-  appBarTheme: AppBarTheme(
-    color: HexColor.fromHex("#14213d"),
+  appBarTheme: const AppBarTheme(
+    iconTheme: IconThemeData(
+        color: Colors.white
+    ),
+    titleTextStyle: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        fontSize: 18
+    ),
+    color: Colors.blue,
   ),
   scaffoldBackgroundColor: HexColor.fromHex("#ffffff"),
 

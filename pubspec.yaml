@@ -34,6 +34,9 @@ dependencies:
   dio: 4.0.4
   number_paginator: 0.0.2
   get: 4.6.1
+  velocity_x: ^3.3.0
+  settings_ui: 2.0.2
+  adaptive_action_sheet: ^2.0.1
   flutter:
     sdk: flutter
 

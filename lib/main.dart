@@ -20,7 +20,7 @@ class FirstLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      themeMode: ThemeMode.dark,
+      themeMode: UserPreferences.instance.getTheme() == "Dark" ? ThemeMode.dark : ThemeMode.light,
       theme: lightTheme ,
       darkTheme: darkTheme,
       home: token == "" ? LoginController() : TabbarViewWidget(),
