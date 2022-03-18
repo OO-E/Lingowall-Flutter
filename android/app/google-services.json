@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "68172250851",
+    "project_id": "lingowall-d854c",
+    "storage_bucket": "lingowall-d854c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68172250851:android:c47f1358d69794b8d34fd6",
+        "android_client_info": {
+          "package_name": "com.example.lingowall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68172250851-jidnvi4cu207qlsk6kv1rbeeon6plhvd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1Rrd7SVqI3GF6GEw88i1vr05uirpDjwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68172250851-jidnvi4cu207qlsk6kv1rbeeon6plhvd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
