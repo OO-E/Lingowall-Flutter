@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:lingowall/Theme/themeLight.dart';
 import 'package:lingowall/UI/List/list_view.dart';
+import 'package:lingowall/UI/Login/login_view.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import 'setting_logic.dart';
@@ -37,55 +38,65 @@ class SettingWidget extends StatelessWidget {
           sections: [
             SettingsSection(
               title: Text('Common'),
-              tiles: <SettingsTile>[
-                SettingsTile.navigation(
-                  onPressed: (BuildContext context) {
-                    showAdaptiveActionSheet(
-                      context: context,
-                      title: const Text('Theme'),
-                      androidBorderRadius: 10,
-                      actions: <BottomSheetAction>[
-                        BottomSheetAction(
-                            title: const Text('Dark',
-                                style: TextStyle(color: Colors.blue)),
-                            onPressed: () {
-                              logic.setTheme(ThemeSetting.Dark);
-                              Get.changeThemeMode(ThemeMode.dark);
-                              Get.back();
-                            }),
-                        BottomSheetAction(
-                            title: const Text('Light',
-                                style: TextStyle(color: Colors.blue)),
-                            onPressed: () {
-                              logic.setTheme(ThemeSetting.Light);
-                              Get.changeThemeMode(ThemeMode.light);
-                              Get.back();
-                            }),
-                      ],
-                      cancelAction: CancelAction(
-                          title: const Text(
-                              'Cancel')), // onPressed parameter is optional by default will dismiss the ActionSheet
-                    );
-                  },
-                  leading: const Icon(Icons.beach_access, color: Colors.blue),
-                  title: const Text('Theme'),
-                  value: logic.themeTitle.value.text.make(),
-                ),
-                SettingsTile.switchTile(
-                  onToggle: (value) {},
-                  initialValue: true,
-                  leading: const Icon(
-                    Icons.format_paint,
-                    color: Colors.blue,
-                  ),
-                  title: const Text('Enable custom theme'),
-                ),
-              ],
+              tiles: <SettingsTile>[themeNavigation(), signOut()],
             ),
           ],
         );
       }),
     );
+  }
+
+  SettingsTile signOut() {
+    return SettingsTile.navigation(
+      onPressed: (BuildContext context) {
+        UserPreferences.instance.signOut();
+        Get.offAll(LoginController());
+      },
+      leading: const Icon(Icons.logout, color: Colors.blue),
+      title: const Text('Sign Out'),
+    );
+  }
+
+  SettingsTile themeNavigation() {
+    return SettingsTile.navigation(
+      onPressed: (BuildContext context) {
+        showAdaptiveActionSheet(
+          context: context,
+          title: const Text('Theme'),
+          androidBorderRadius: 10,
+          actions: <BottomSheetAction>[
+            darkThemeButton(),
+            lightThemeButton(),
+          ],
+          cancelAction: CancelAction(
+              title: const Text(
+                  'Cancel')), // onPressed parameter is optional by default will dismiss the ActionSheet
+        );
+      },
+      leading: const Icon(Icons.beach_access, color: Colors.blue),
+      title: const Text('Theme'),
+      value: logic.themeTitle.value.text.make(),
+    );
+  }
+
+  BottomSheetAction darkThemeButton() {
+    return BottomSheetAction(
+        title: const Text('Dark', style: TextStyle(color: Colors.blue)),
+        onPressed: () {
+          logic.setTheme(ThemeSetting.Dark);
+          Get.changeThemeMode(ThemeMode.dark);
+          Get.back();
+        });
+  }
+
+  BottomSheetAction lightThemeButton() {
+    return BottomSheetAction(
+        title: const Text('Light', style: TextStyle(color: Colors.blue)),
+        onPressed: () {
+          logic.setTheme(ThemeSetting.Light);
+          Get.changeThemeMode(ThemeMode.light);
+          Get.back();
+        });
   }
 
   VxBlock buildVxBlock() {

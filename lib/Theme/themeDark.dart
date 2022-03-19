@@ -14,8 +14,6 @@ final ThemeData darkTheme = ThemeData(
     color: HexColor.fromHex("#161a1d"),
   ),
   scaffoldBackgroundColor: HexColor.fromHex("#0b090a"),
-
-
   textTheme: const TextTheme(
       headline1: TextStyle(
         fontWeight: FontWeight.bold,

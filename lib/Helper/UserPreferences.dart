@@ -45,4 +45,9 @@ class UserPreferences {
     return  token;
   }
 
+  void signOut() {
+
+    getStorage.remove(UserPreferancesTitle.TOKEN);
+  }
+
 }

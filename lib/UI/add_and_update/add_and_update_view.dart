@@ -14,16 +14,7 @@ class AddAndUpdateController extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("LINGOWALL")),
       body: SafeArea(
-        child: [
-          TextField(
-            controller: logic.wordController,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              labelText: "Word",
-              errorText: logic.wordError.value,
-            ),
-          ).box.p24.white.shadow.make(),
-        ].vStack().scrollVertical(),
+        child: buildSingleChildScrollView(),
       ),
     );
   }

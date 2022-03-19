@@ -46,16 +46,23 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.lingowall"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
+    signingConfigs {
+        standart {
+            storeFile file("keystore/lingowall-release.jks")
+            keyAlias 'lingowall'
+            keyPassword 'qazqwer123'
+            storePassword 'qazqwer123'
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.standart
         }
     }
 }

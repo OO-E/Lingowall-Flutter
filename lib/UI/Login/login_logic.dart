@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:lingowall/Core/service/login_service.dart';
 import 'package:lingowall/Helper/UserPreferences.dart';
@@ -27,12 +28,14 @@ class LoginLogic extends GetxController {
 
   void authentication(String email, String password) {
     print("Handle Login Authentication");
+    EasyLoading.show(status: 'loading...');
     service.login(email, password).then((value) {
-
+      EasyLoading.dismiss();
       UserPreferences.instance.setUserToken(value.token!);
       Get.off(TabbarViewWidget());
 
     }).catchError((error) {
+      EasyLoading.dismiss();
       this.error.add(error);
     });
   }
