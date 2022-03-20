@@ -14,12 +14,12 @@ class AddAndUpdateController extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("LINGOWALL")),
       body: SafeArea(
-        child: buildSingleChildScrollView(),
+        child: buildSingleChildScrollView(context),
       ),
     );
   }
 
-  SingleChildScrollView buildSingleChildScrollView() {
+  SingleChildScrollView buildSingleChildScrollView(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -34,70 +34,16 @@ class AddAndUpdateController extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Color.fromRGBO(143, 148, 251, .2),
-                              blurRadius: 20.0,
-                              offset: Offset(0, 10))
-                        ]),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Obx(() {
                       return Column(
                         children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(8.0),
-                            decoration: const BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(color: Colors.black12))),
-                            child: TextField(
-                              controller: logic.wordController,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                labelText: "Word",
-                                errorText: logic.wordError.value,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(8.0),
-                            decoration: const BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(color: Colors.black12))),
-                            child: TextField(
-                              controller: logic.definationController,
-                              decoration: InputDecoration(
-                                errorText: logic.definationError.value,
-                                border: InputBorder.none,
-                                labelText: "Defination",
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(8.0),
-                            decoration: const BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(color: Colors.black12))),
-                            child: TextField(
-                              controller: logic.exampleController,
-                              decoration: InputDecoration(
-                                errorText: logic.exampleError.value,
-                                border: InputBorder.none,
-                                labelText: "Example",
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(8.0),
-                            child: TextField(
-                              controller: logic.meanController,
-                              decoration: InputDecoration(
-                                errorText: logic.meanError.value,
-                                border: InputBorder.none,
-                                labelText: "Mean",
-                              ),
-                            ),
-                          )
+                          wordTextField(context),
+                          definationTextField(context),
+                          exampleTextField(context),
+                          meanTextField(context)
                         ],
                       );
                     }),
@@ -105,20 +51,7 @@ class AddAndUpdateController extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  Container(
-                      width: double.infinity,
-                      height: 50,
-                      child: TextButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.deepOrangeAccent),
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white)),
-                        child: Text('Add'.tr),
-                        onPressed: () {
-                          logic.addNewWord();
-                        },
-                      )),
+                  updateButton(context),
                   const SizedBox(
                     height: 70,
                   ),
@@ -126,6 +59,86 @@ class AddAndUpdateController extends StatelessWidget {
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  Container updateButton(BuildContext context) {
+    return Container(
+        width: double.infinity,
+        height: 50,
+        child: TextButton(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.deepOrangeAccent),
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white)),
+          child: Text('Add'.tr),
+          onPressed: () {
+            logic.addNewWord();
+          },
+        ));
+  }
+
+  Container definationTextField(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: TextField(
+        style: Theme.of(context).textTheme.headline3,
+        controller: logic.definationController,
+        decoration: InputDecoration(
+          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          border: InputBorder.none,
+          labelText: "Defination",
+          errorText: logic.definationError.value,
+        ),
+      ),
+    );
+  }
+
+  Container exampleTextField(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: TextField(
+        style: Theme.of(context).textTheme.headline3,
+        controller: logic.exampleController,
+        decoration: InputDecoration(
+          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          border: InputBorder.none,
+          labelText: "Example",
+          errorText: logic.exampleError.value,
+        ),
+      ),
+    );
+  }
+
+  Container meanTextField(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: TextField(
+        style: Theme.of(context).textTheme.headline3,
+        controller: logic.meanController,
+        decoration: InputDecoration(
+            labelStyle:
+                TextStyle(color: Theme.of(context).colorScheme.secondary),
+            border: InputBorder.none,
+            labelText: "Mean",
+            errorText: logic.meanError.value),
+      ),
+    );
+  }
+
+  Container wordTextField(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: TextField(
+        controller: logic.wordController,
+        style: Theme.of(context).textTheme.headline3,
+        decoration: InputDecoration(
+          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          border: InputBorder.none,
+          labelText: "Word",
+          errorText: logic.wordError.value,
         ),
       ),
     );
