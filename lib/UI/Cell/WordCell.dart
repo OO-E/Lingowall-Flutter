@@ -62,8 +62,9 @@ class WordCell extends StatelessWidget {
             ),
           ),
           onTap: () {
+            print("TAPP");
             StaticMethods.instance
-                .showMessage(item.word ?? "", item.meaning ?? "");
+                .showMessageWithOutDelay(item.word ?? "", item.meaning ?? "", context);
           },
         ),
       ),
