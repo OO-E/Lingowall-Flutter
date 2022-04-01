@@ -23,7 +23,7 @@ class Intercepter {
   }
 
   static errorInterceptor(DioError dioError, ErrorInterceptorHandler handler) async {
-
+    print(dioError.error);
     return handler.next(dioError);
   }
 

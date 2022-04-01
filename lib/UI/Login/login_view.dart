@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'login_logic.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
 import 'package:lingowall/UI/list/list_view.dart';
@@ -14,6 +15,8 @@ class LoginController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    emailController.text = "ozgunergen@yandex.com";
+    passwordController.text = "123456789";
     return Scaffold(
         appBar: AppBar(title: const Text("LINGOWALL")),
         body: SafeArea(
@@ -101,4 +104,7 @@ class LoginController extends StatelessWidget {
           ),
         )));
   }
+
+
+
 }

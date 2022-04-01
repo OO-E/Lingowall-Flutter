@@ -5,6 +5,7 @@ import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
 import 'dart:async';
 import 'package:lingowall/UI/Tabbar/tabbar_view.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 
 
@@ -29,14 +30,33 @@ class LoginLogic extends GetxController {
   void authentication(String email, String password) {
     print("Handle Login Authentication");
     EasyLoading.show(status: 'loading...');
-    service.login(email, password).then((value) {
-      EasyLoading.dismiss();
+    service.login(email, password).then((value)  {
+
       UserPreferences.instance.setUserToken(value.token!);
-      Get.off(TabbarViewWidget());
+      getOneSignalID();
+
 
     }).catchError((error) {
       EasyLoading.dismiss();
       this.error.add(error);
     });
+  }
+
+
+  void getOneSignalID()  async {
+    var deviceState =  await OneSignal.shared.getDeviceState();
+
+    var playerId = deviceState!.userId!;
+
+    service.updateOneSignalID(playerId).then((value) {
+       EasyLoading.dismiss();
+       Get.off(TabbarViewWidget());
+
+     }).catchError((error) {
+
+         EasyLoading.dismiss();
+         Get.off(TabbarViewWidget());
+     });
+
   }
 }

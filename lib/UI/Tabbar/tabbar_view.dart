@@ -9,6 +9,7 @@ import 'package:lingowall/UI/setting/setting_view.dart';
 
 class TabbarViewWidget extends StatelessWidget {
 
+  
   var _currentIndex = 0.obs;
   var firstScreen = ListViewWidget();
   var secondScreen = AddAndUpdateController();
@@ -17,6 +18,7 @@ class TabbarViewWidget extends StatelessWidget {
 
   Widget getScreen(int index) {
     if (index == 0) {
+
       return firstScreen;
     } else if (index == 1) {
       return secondScreen;
