@@ -45,7 +45,6 @@ class LoginLogic extends GetxController {
 
   void getOneSignalID()  async {
     var deviceState =  await OneSignal.shared.getDeviceState();
-
     var playerId = deviceState!.userId!;
 
     service.updateOneSignalID(playerId).then((value) {

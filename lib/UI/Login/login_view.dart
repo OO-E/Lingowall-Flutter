@@ -15,8 +15,6 @@ class LoginController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    emailController.text = "ozgunergen@yandex.com";
-    passwordController.text = "123456789";
     return Scaffold(
         appBar: AppBar(title: const Text("LINGOWALL")),
         body: SafeArea(
