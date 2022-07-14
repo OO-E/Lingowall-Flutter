@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lingowall/Core/model/word_model.dart';
 import 'package:lingowall/Delegate/UIDelegate.dart';
 import 'package:lingowall/UI/add_and_update/add_and_update_view.dart';
 import 'package:number_paginator/number_paginator.dart';
@@ -32,6 +35,16 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
         body: SafeArea(
           child: Column(
             children: [
+
+              Flexible(
+                  child: Obx(
+                () => ListView.builder(
+                    itemCount: logic.wordItems.length,
+                    itemBuilder: (context, index) {
+                      return WordCell(item: logic.wordItems[index],delegate: this,);
+                     // return WordCell2(logic.wordItems[index], context);
+                    }),
+              )),
               Obx(() {
                 return Container(
                     height: 50,
@@ -48,14 +61,6 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
                       },
                     ));
               }),
-              Flexible(
-                  child: Obx(
-                () => ListView.builder(
-                    itemCount: logic.wordItems.length,
-                    itemBuilder: (context, index) {
-                      return WordCell(item: logic.wordItems.value[index], delegate: this,);
-                    }),
-              )),
             ],
           ),
         ));
@@ -67,5 +72,15 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
     logic.getWordsCount();
   }
 
+  ListTile WordCell2(WordModel item, BuildContext context) {
+    return ListTile(
+        title: Text(item.word ?? "-"),
+        subtitle: Text(item.meaning ?? ""),
+
+        enabled: true,
+        onTap: () {
+          //logic.showPassword(item);
+        });
+  }
 }
 

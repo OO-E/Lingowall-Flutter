@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:lingowall/Core/service/word_service.dart';
@@ -13,10 +15,10 @@ class Add_and_updateLogic extends GetxController {
   var definationError = "".obs;
   var exampleError = "".obs;
   var meanError = "".obs;
+  bool isWordSelected = false;
 
   @override
   void onReady() {
-    // TODO: implement onReady
     super.onReady();
   }
 
@@ -84,5 +86,18 @@ class Add_and_updateLogic extends GetxController {
         StaticMethods.instance.showMessage("", error as String);
       });
     }
+  }
+
+  void translateWord() {
+
+
+    service.translateWord(wordController.text,   "tr", "en").then((value) {
+
+      meanController.text = value;
+
+    }).catchError((error) {
+      meanController.text = "";
+    });
+
   }
 }

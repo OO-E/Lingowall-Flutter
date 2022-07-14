@@ -4,6 +4,11 @@ import 'package:lingowall/Delegate/UIDelegate.dart';
 import 'package:lingowall/UI/Cell/WordCell.dart';
 import 'package:lingowall/UI/Focus/focus_logic.dart';
 
+import '../../Core/model/word_model.dart';
+import '../../Helper/Debouncer.dart';
+import '../../Helper/StaticMethods.dart';
+import '../UpdateWord/updateword_view.dart';
+
 class FocusViewWidget extends StatelessWidget with UIDelegate {
   FocusViewWidget({Key? key}) : super(key: key);
 
@@ -25,7 +30,8 @@ class FocusViewWidget extends StatelessWidget with UIDelegate {
                         () => ListView.builder(
                         itemCount: logic.wordItems.length,
                         itemBuilder: (context, index) {
-                          return WordCell(item: logic.wordItems.value[index],delegate: this,);
+                           return WordCell2(logic.wordItems[index], context);
+                         // return WordCell(item: logic.wordItems.value[index],delegate: this,);
                         }),
                   )),
             ],
@@ -36,6 +42,19 @@ class FocusViewWidget extends StatelessWidget with UIDelegate {
   @override
   void onRefreshPage() {
     logic.getFocusList();
+  }
+
+  ListTile WordCell2(WordModel item, BuildContext context) {
+    return ListTile(
+        title: Text(item.word ?? "-",style: Theme.of(context).textTheme.headline1),
+        subtitle: Text(item.meaning ?? "", style: Theme.of(context).textTheme.headline2,),
+        enabled: true,
+        onTap: () {
+          var updateScreen = UpdateWordController();
+          updateScreen.trigger(item, this);
+          Get.to(updateScreen);
+
+        });
   }
 
 }

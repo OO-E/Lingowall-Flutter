@@ -21,7 +21,7 @@ final ThemeData darkTheme = ThemeData(
         fontSize: 20.0,
       ),
       headline2: TextStyle(
-        color: Colors.amber,
+        color: Colors.blue,
         fontSize: 16,
       ),
       headline3: TextStyle(
@@ -37,14 +37,14 @@ final ThemeData darkTheme = ThemeData(
       ),
       elevation: 0),
   colorScheme: ColorScheme.fromSwatch().copyWith(
-
     secondaryVariant: Colors.black,
-    secondary: HexColor.fromHex("#fca311"),
+    secondary: Colors.blue,
     onSecondary: HexColor.fromHex("#161a1d"),
     primaryVariant: Colors.white,
     primary: HexColor.fromHex("#161a1d"),
     onPrimary: HexColor.fromHex("#161a1d"),
     error: HexColor.fromHex("#e63946"),
+
 
   ),
 );

@@ -16,7 +16,7 @@ final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: HexColor.fromHex("#ffffff"),
 
 
-  
+
   textTheme: const TextTheme(
       headline1: TextStyle(
         fontWeight: FontWeight.bold,
@@ -24,7 +24,7 @@ final ThemeData lightTheme = ThemeData(
         fontSize: 20.0,
       ),
       headline2: TextStyle(
-        color: Colors.amber,
+        color: Colors.blue,
         fontSize: 16,
       ),
       headline3: TextStyle(
@@ -32,7 +32,7 @@ final ThemeData lightTheme = ThemeData(
         fontSize: 16,
       )),
   cardTheme: CardTheme(
-      color: HexColor.fromHex("#e5e5e5"),
+      color: HexColor.fromHex("#F7F7F7"),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(10),
@@ -42,11 +42,11 @@ final ThemeData lightTheme = ThemeData(
   colorScheme: ColorScheme.fromSwatch().copyWith(
 
     secondaryVariant: Colors.white,
-    secondary: HexColor.fromHex("#fca311"),
+    secondary: Colors.blue,
     onSecondary: HexColor.fromHex("#ffffff"),
     primaryVariant: Colors.black,
     primary: HexColor.fromHex("#14213d"),
-    onPrimary: HexColor.fromHex("#e5e5e5"),
+    onPrimary: HexColor.fromHex("#F7F7F7"),
     error: HexColor.fromHex("#e63946"),
 
   ),

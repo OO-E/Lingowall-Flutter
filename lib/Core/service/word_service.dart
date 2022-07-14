@@ -86,6 +86,22 @@ class WordService {
   }
 
 
+  Future<String> translateWord(String word, String target, String source) async {
+
+    final result = await service.request(
+        url: "/word/translate/" + target + "/" + source + "/" + word ,
+        method: Method.GET);
+
+    final data = BaseResponseModel<String>.onlyJsonParse(
+        json.decode(result.toString()));
+
+    if (data.success) {
+      return data.result ?? "ok";
+    } else {
+      throw data.error;
+    }
+  }
+
   Future<String> fetchDeleteWord(String id) async {
 
     final result = await service.request(

@@ -9,7 +9,7 @@ import 'package:lingowall/UI/setting/setting_view.dart';
 
 class TabbarViewWidget extends StatelessWidget {
 
-  
+
   var _currentIndex = 0.obs;
   var firstScreen = ListViewWidget();
   var secondScreen = AddAndUpdateController();
@@ -62,13 +62,13 @@ class TabbarViewWidget extends StatelessWidget {
             BottomNavyBarItem(
               icon: const Icon(Icons.apps),
               title: const Text('Words'),
-              activeColor: Theme.of(context).colorScheme.secondary,
+              activeColor: Colors.blue,
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
               icon: const Icon(Icons.add_circle_outline),
               title: const Text('Add'),
-              activeColor: Colors.purpleAccent,
+              activeColor: Colors.blue,
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
@@ -76,7 +76,7 @@ class TabbarViewWidget extends StatelessWidget {
               title: const Text(
                 'Focus',
               ),
-              activeColor: Colors.pink,
+              activeColor: Colors.blue,
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
