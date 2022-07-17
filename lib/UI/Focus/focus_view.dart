@@ -30,7 +30,7 @@ class FocusViewWidget extends StatelessWidget with UIDelegate {
                         () => ListView.builder(
                         itemCount: logic.wordItems.length,
                         itemBuilder: (context, index) {
-                           return WordCell2(logic.wordItems[index], context);
+                           return WordCell2(logic.wordItems[index], context, index);
                          // return WordCell(item: logic.wordItems.value[index],delegate: this,);
                         }),
                   )),
@@ -43,18 +43,51 @@ class FocusViewWidget extends StatelessWidget with UIDelegate {
   void onRefreshPage() {
     logic.getFocusList();
   }
+  ListTile WordCell2(WordModel item, BuildContext context, int index) {
 
-  ListTile WordCell2(WordModel item, BuildContext context) {
+    ImageProvider image;
+
+    if (item.image_url != "" && item.image_url != null) {
+      image = NetworkImage(item.image_url!);
+    } else {
+      image = AssetImage("assets/photos.png");
+    }
+
     return ListTile(
-        title: Text(item.word ?? "-",style: Theme.of(context).textTheme.headline1),
-        subtitle: Text(item.meaning ?? "", style: Theme.of(context).textTheme.headline2,),
+        dense: true,
+        visualDensity: VisualDensity(vertical: 2),
+        title: Text(item.word ?? "-", style: Theme
+            .of(context)
+            .textTheme
+            .headline1),
+        subtitle: Text(item.meaning ?? "", style: Theme
+            .of(context)
+            .textTheme
+            .headline2,),
         enabled: true,
+        leading: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: 44,
+              minHeight: 44,
+              maxWidth: 64,
+              maxHeight: 64,
+            ),
+            child: Image(image: image,)),
+        trailing: IconButton(
+          icon: item.focus == "true"
+              ? const Icon(Icons.star, color: Colors.yellow)
+              : const Icon(Icons.star_border, color: Colors.yellow),
+          onPressed: () {
+
+            var value = item.focus == "true" ? true : false;
+            logic.fetchFocus(!value, item.sId!, index);
+          },
+        ),
         onTap: () {
-          var updateScreen = UpdateWordController();
-          updateScreen.trigger(item, this);
-          Get.to(updateScreen);
+            var updateScreen = UpdateWordController();
+            updateScreen.trigger(item, this);
+            Get.to(updateScreen);
 
         });
   }
-
 }

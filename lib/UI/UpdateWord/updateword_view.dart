@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 import 'package:lingowall/Delegate/UIDelegate.dart';
 import 'updateword_logic.dart';
 import 'package:lingowall/Core/model/word_model.dart';
+import 'package:lingowall/Helper/Debouncer.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class UpdateWordController extends StatelessWidget {
   final logic = Get.put(UpdateWordLogic());
   FocusNode _focusNode = FocusNode();
+  final _debouncer = Debouncer();
 
   UpdateWordController({Key? key}) : super(key: key);
 
@@ -17,6 +20,8 @@ class UpdateWordController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _debouncer.duration = Duration(milliseconds: 750);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Update"),
@@ -40,11 +45,11 @@ class UpdateWordController extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(20.0),
+                    padding: EdgeInsets.all(10.0),
                     child: Column(
                       children: <Widget>[
                         const SizedBox(
-                          height: 50,
+                          height: 20,
                         ),
                         Container(
                           padding: EdgeInsets.all(5),
@@ -54,10 +59,10 @@ class UpdateWordController extends StatelessWidget {
                           ),
                           child: Column(
                             children: <Widget>[
+                              icon(context),
                               wordTextField(context),
-                              definationTextField(context),
+                              meanTextField(context),
                               exampleTextField(context),
-                              meanTextField(context)
                             ],
                           ),
                         ),
@@ -129,17 +134,28 @@ class UpdateWordController extends StatelessWidget {
         ));
   }
 
-  Container definationTextField(BuildContext context) {
+
+
+
+  Container icon(BuildContext context) {
+    ImageProvider image;
+
+    if (logic.iconUrl.value != "") {
+      image = NetworkImage(logic.iconUrl.value);
+    } else {
+      image = AssetImage("assets/photos.png");
+    }
+
+
+
     return Container(
-      padding: EdgeInsets.all(8.0),
-      child: TextField(
-        style: Theme.of(context).textTheme.headline3,
-        controller: logic.definationController,
-        decoration: InputDecoration(
-          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
-          border: InputBorder.none,
-          labelText: "Defination",
-          errorText: logic.definationError.value,
+      width: double.infinity,
+      height: 100,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+        child: Image(
+          image: image,
+
         ),
       ),
     );
@@ -152,11 +168,27 @@ class UpdateWordController extends StatelessWidget {
         style: Theme.of(context).textTheme.headline3,
         controller: logic.exampleController,
         decoration: InputDecoration(
-          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
-          border: InputBorder.none,
-          labelText: "Example",
-          errorText: logic.exampleError.value,
-        ),
+            labelStyle:
+            TextStyle(color: Theme.of(context).colorScheme.secondary),
+            border: InputBorder.none,
+            labelText: "Example",
+            errorText: logic.exampleError.value,
+            focusedErrorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            )),
       ),
     );
   }
@@ -169,10 +201,28 @@ class UpdateWordController extends StatelessWidget {
         controller: logic.meanController,
         decoration: InputDecoration(
             labelStyle:
-                TextStyle(color: Theme.of(context).colorScheme.secondary),
+            TextStyle(color: Theme.of(context).colorScheme.secondary),
             border: InputBorder.none,
             labelText: "Mean",
-            errorText: logic.meanError.value),
+            errorText: logic.meanError.value,
+            focusedErrorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            )
+        ),
+
       ),
     );
   }
@@ -184,12 +234,37 @@ class UpdateWordController extends StatelessWidget {
         controller: logic.wordController,
         style: Theme.of(context).textTheme.headline3,
         decoration: InputDecoration(
-          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
-          border: InputBorder.none,
-          labelText: "Word",
-          errorText: logic.wordError.value,
+            labelStyle:
+            TextStyle(color: Theme.of(context).colorScheme.secondary),
+            border: InputBorder.none,
+            labelText: "Word",
+            errorText: logic.wordError.value,
+            focusedErrorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              borderSide: BorderSide(width: 1, color: Vx.blue500),
+            )
         ),
+        onChanged: (value) {
+          _debouncer.run(() {
+            logic.translateWord();
+            logic.findIcon();
+          });
+        },
+
       ),
     );
   }
+
 }

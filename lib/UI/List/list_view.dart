@@ -41,7 +41,7 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
                 () => ListView.builder(
                     itemCount: logic.wordItems.length,
                     itemBuilder: (context, index) {
-                      return WordCell(item: logic.wordItems[index],delegate: this,);
+                      return WordCell2(logic.wordItems[index], context, index);
                      // return WordCell2(logic.wordItems[index], context);
                     }),
               )),
@@ -72,15 +72,53 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
     logic.getWordsCount();
   }
 
-  ListTile WordCell2(WordModel item, BuildContext context) {
-    return ListTile(
-        title: Text(item.word ?? "-"),
-        subtitle: Text(item.meaning ?? ""),
+  ListTile WordCell2(WordModel item, BuildContext context, int index) {
 
+    ImageProvider image;
+
+    if (item.image_url != "" && item.image_url != null) {
+      image = NetworkImage(item.image_url!);
+    } else {
+      image = AssetImage("assets/photos.png");
+    }
+
+    return ListTile(
+        dense: true,
+        visualDensity: VisualDensity(vertical: 2),
+        title: Text(item.word ?? "-", style: Theme
+            .of(context)
+            .textTheme
+            .headline1),
+        subtitle: Text(item.meaning ?? "", style: Theme
+            .of(context)
+            .textTheme
+            .headline2,),
         enabled: true,
+        leading: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: 44,
+              minHeight: 44,
+              maxWidth: 64,
+              maxHeight: 64,
+            ),
+            child: Image(image: image,)),
+        trailing: IconButton(
+          icon: item.focus == "true"
+              ? const Icon(Icons.star, color: Colors.yellow)
+              : const Icon(Icons.star_border, color: Colors.yellow),
+          onPressed: () {
+
+            var value = item.focus == "true" ? true : false;
+            logic.fetchFocus(!value, item.sId!, index);
+          },
+        ),
         onTap: () {
-          //logic.showPassword(item);
+        //  var updateScreen = UpdateWordController();
+        //  updateScreen.trigger(item, this);
+        //  Get.to(updateScreen);
+
         });
   }
+
 }
 

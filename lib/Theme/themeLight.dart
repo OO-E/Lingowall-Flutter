@@ -14,22 +14,22 @@ final ThemeData lightTheme = ThemeData(
     color: Colors.blue,
   ),
   scaffoldBackgroundColor: HexColor.fromHex("#ffffff"),
-
+  dividerColor: Colors.black54,
 
 
   textTheme: const TextTheme(
       headline1: TextStyle(
         fontWeight: FontWeight.bold,
         color: Colors.black,
-        fontSize: 20.0,
+        fontSize: 18.0,
       ),
       headline2: TextStyle(
         color: Colors.blue,
-        fontSize: 16,
+        fontSize: 14.0,
       ),
       headline3: TextStyle(
         color: Colors.black,
-        fontSize: 16,
+        fontSize: 12.0,
       )),
   cardTheme: CardTheme(
       color: HexColor.fromHex("#F7F7F7"),

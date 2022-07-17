@@ -14,19 +14,20 @@ final ThemeData darkTheme = ThemeData(
     color: HexColor.fromHex("#161a1d"),
   ),
   scaffoldBackgroundColor: HexColor.fromHex("#0b090a"),
+  dividerColor: Colors.white,
   textTheme: const TextTheme(
       headline1: TextStyle(
         fontWeight: FontWeight.bold,
         color: Colors.white,
-        fontSize: 20.0,
+        fontSize: 18.0,
       ),
       headline2: TextStyle(
         color: Colors.blue,
-        fontSize: 16,
+        fontSize: 14.0,
       ),
       headline3: TextStyle(
         color: Colors.white,
-        fontSize: 16,
+        fontSize: 12.0,
       )),
   cardTheme: CardTheme(
       color: HexColor.fromHex("#161a1d"),

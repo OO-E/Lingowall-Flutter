@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import '../../Helper/Debouncer.dart';
 import 'add_and_update_logic.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class AddAndUpdateController extends StatelessWidget {
   AddAndUpdateController({Key? key}) : super(key: key);
-
-
 
   final logic = Get.put(Add_and_updateLogic());
   final _debouncer = Debouncer();
@@ -33,7 +32,7 @@ class AddAndUpdateController extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   const SizedBox(
-                    height: 50,
+                    height: 20,
                   ),
                   Container(
                     padding: EdgeInsets.all(0),
@@ -43,16 +42,18 @@ class AddAndUpdateController extends StatelessWidget {
                     child: Obx(() {
                       return Column(
                         children: <Widget>[
+                          Obx(() {
+                            return icon(context);
+                          }),
                           wordTextField(context),
-                          definationTextField(context),
-                          exampleTextField(context),
-                          meanTextField(context)
+                          meanTextField(context),
+                          exampleTextField(context)
                         ],
                       );
                     }),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 15,
                   ),
                   updateButton(context),
                   const SizedBox(
@@ -66,15 +67,13 @@ class AddAndUpdateController extends StatelessWidget {
       ),
     );
   }
-
   Container updateButton(BuildContext context) {
     return Container(
         width: double.infinity,
         height: 50,
         child: TextButton(
           style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.blue),
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white)),
           child: Text('Add'.tr, style: TextStyle(fontSize: 18)),
           onPressed: () {
@@ -83,33 +82,25 @@ class AddAndUpdateController extends StatelessWidget {
         ));
   }
 
-  Container definationTextField(BuildContext context) {
+  Container icon(BuildContext context) {
+    ImageProvider image;
+
+    if (logic.iconUrl.value != "") {
+      image = NetworkImage(logic.iconUrl.value);
+    } else {
+      image = AssetImage("assets/photos.png");
+    }
+
+
+
     return Container(
-      padding: EdgeInsets.all(8.0),
-      child: TextField(
-        style: Theme.of(context).textTheme.headline3,
-        controller: logic.definationController,
-        decoration: InputDecoration(
-          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
-          border: InputBorder.none,
-          labelText: "Defination",
-          errorText: logic.definationError.value,
-            focusedErrorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-              borderSide: BorderSide(width: 1, color: Vx.blue500),
-            ),
-            errorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-              borderSide: BorderSide(width: 1, color: Vx.blue500),
-            ),
-            enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-              borderSide: BorderSide(width: 1, color: Vx.blue500),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-              borderSide: BorderSide(width: 1, color: Vx.blue500),
-            )
+      width: double.infinity,
+      height: 100,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+        child: Image(
+          image: image,
+
         ),
       ),
     );
@@ -122,7 +113,8 @@ class AddAndUpdateController extends StatelessWidget {
         style: Theme.of(context).textTheme.headline3,
         controller: logic.exampleController,
         decoration: InputDecoration(
-            labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
+            labelStyle:
+                TextStyle(color: Theme.of(context).colorScheme.secondary),
             border: InputBorder.none,
             labelText: "Example",
             errorText: logic.exampleError.value,
@@ -187,10 +179,11 @@ class AddAndUpdateController extends StatelessWidget {
         controller: logic.wordController,
         style: Theme.of(context).textTheme.headline3,
         decoration: InputDecoration(
-          labelStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
-          border: InputBorder.none,
-          labelText: "Word",
-          errorText: logic.wordError.value,
+            labelStyle:
+                TextStyle(color: Theme.of(context).colorScheme.secondary),
+            border: InputBorder.none,
+            labelText: "Word",
+            errorText: logic.wordError.value,
             focusedErrorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),
               borderSide: BorderSide(width: 1, color: Vx.blue500),
@@ -211,13 +204,13 @@ class AddAndUpdateController extends StatelessWidget {
         onChanged: (value) {
           _debouncer.run(() {
             logic.translateWord();
+            logic.findIcon();
           });
         },
 
       ),
     );
   }
-
 
 
 }

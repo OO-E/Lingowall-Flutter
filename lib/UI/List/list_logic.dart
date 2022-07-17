@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lingowall/Core/model/word_model.dart';
+import 'package:lingowall/Core/service/icon_service.dart';
 import 'package:lingowall/Core/service/word_service.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
 import 'dart:async';
@@ -22,6 +23,8 @@ class ListLogic extends GetxController   {
       StaticMethods.instance.showSnackMessage("", event);
     });
 
+    //Access tokenı yenilemek için her uygulama açılışında çalışacak.
+    IconService.shared.authService().then((value) {});
     getWords(0);
     getWordsCount();
   }
@@ -38,6 +41,7 @@ class ListLogic extends GetxController   {
 
     service.wordList(page).then((value) {
       wordItems.value = value;
+
       EasyLoading.dismiss();
     }).catchError((error)  {
       EasyLoading.dismiss();
@@ -48,9 +52,23 @@ class ListLogic extends GetxController   {
   void getWordsCount() {
 
     service.wordCount().then((value) {
-      pageCount.value = (value / 25).toInt() +  1;
+      pageCount.value = (value / 75).toInt() +  1;
     }).catchError((error) {
     });
+
+  }
+
+  void fetchFocus(bool focus, String wordId, int index) {
+    EasyLoading.show(status: 'loading...');
+
+    service.fetchFocus(focus, wordId).then((value) {
+      EasyLoading.dismiss();
+      wordItems.value[index].focus = focus.toString();
+      wordItems.refresh();
+    }).catchError((error) {
+      EasyLoading.dismiss();
+    });
+
 
   }
 

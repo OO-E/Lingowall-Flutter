@@ -23,7 +23,7 @@ class WordService {
 
   Future<List<WordModel>> wordList(num page) async {
     final result = await service.request(
-        url: "/word/myword/" + page.toString() + "/25", method: Method.GET);
+        url: "/word/myword/" + page.toString() + "/75", method: Method.GET);
     final data = BaseListResponseModel<WordModel>.fromJson(
         json.decode(result.toString()), (data) => WordModel.fromJson(data));
     if (data.success) {
@@ -50,12 +50,12 @@ class WordService {
     }
   }
 
-  Future<String> fetchNewWord(String word, String meaning, String defination, String example) async {
+  Future<String> fetchNewWord(String word, String meaning, String example, String icon_url) async {
 
     final result = await service.request(
         url: "/word",
         method: Method.POST,
-        params: {"word": word, "meaning": meaning, "defination": defination, "example": example});
+        params: {"word": word, "meaning": meaning, "image_url": icon_url, "example": example});
 
     final data = BaseResponseModel<String>.onlyJsonParse(
         json.decode(result.toString()));
@@ -68,12 +68,12 @@ class WordService {
   }
 
 
-  Future<String> fetchUpdateWord(String id, String word, String meaning, String defination, String example) async {
+  Future<String> fetchUpdateWord(String id, String word, String meaning, String image_url, String example) async {
 
     final result = await service.request(
         url: "/word",
         method: Method.PUT,
-        params: {"id": id, "word": word, "meaning": meaning, "defination": defination, "example": example});
+        params: {"id": id, "word": word, "meaning": meaning, "image_url": image_url, "example": example});
 
     final data = BaseResponseModel<String>.onlyJsonParse(
         json.decode(result.toString()));

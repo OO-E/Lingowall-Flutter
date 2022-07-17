@@ -38,6 +38,7 @@ class LoginLogic extends GetxController {
 
     }).catchError((error) {
       EasyLoading.dismiss();
+      print(error);
       this.error.add(error);
     });
   }

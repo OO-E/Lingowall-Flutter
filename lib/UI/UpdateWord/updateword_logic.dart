@@ -7,19 +7,20 @@ import 'package:lingowall/Delegate/UIDelegate.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import '../../Core/service/icon_service.dart';
+
 
 class UpdateWordLogic extends GetxController {
   WordService service = WordService();
 
   TextEditingController wordController = TextEditingController();
-  TextEditingController definationController = TextEditingController();
   TextEditingController exampleController = TextEditingController();
   TextEditingController meanController = TextEditingController();
 
   UIDelegate? delegate;
+  var iconUrl = "".obs;
 
   var wordError = "".obs;
-  var definationError = "".obs;
   var exampleError = "".obs;
   var meanError = "".obs;
 
@@ -41,11 +42,11 @@ class UpdateWordLogic extends GetxController {
     item.stream.listen((event) {
       print("itemss ${event.word}");
       wordController.text = event.word ?? "";
-      definationController.text = event.defination ?? "";
       exampleController.text = event.example ?? "";
       meanController.text = event.meaning ?? "";
       isFocus.value = event.focus == "true" ? true : false;
       wordId.value = event.sId ?? "";
+      iconUrl.value = event.image_url ?? "";
 
     });
   }
@@ -76,7 +77,6 @@ class UpdateWordLogic extends GetxController {
   void fetchUpdate() {
 
     var wordText = wordController.text;
-    var definationText = definationController.text;
     var exampleText = exampleController.text;
     var meanText = meanController.text;
 
@@ -89,12 +89,6 @@ class UpdateWordLogic extends GetxController {
       wordError.value = "";
     }
 
-    if (definationText == "") {
-      definationError.value = "Please set Defination";
-      isFetch = false;
-    } else {
-      definationError.value = "";
-    }
 
     if (exampleText == "") {
       exampleError.value = "Please set Example";
@@ -111,18 +105,17 @@ class UpdateWordLogic extends GetxController {
 
     if (isFetch == true) {
       service
-          .fetchUpdateWord(wordId.value, wordText, meanText, definationText, exampleText)
+          .fetchUpdateWord(wordId.value, wordText, meanText, iconUrl.value, exampleText)
           .then((value) {
 
         wordController.text = "";
         meanController.text = "";
         exampleController.text = "";
-        definationController.text = "";
 
         meanError.value = "";
         wordError.value = "";
         exampleError.value = "";
-        definationError.value = "";
+        iconUrl.value = "";
 
         StaticMethods.instance.showMessage("", "This word updated");
         delegate?.onRefreshPage();
@@ -144,12 +137,10 @@ class UpdateWordLogic extends GetxController {
       wordController.text = "";
       meanController.text = "";
       exampleController.text = "";
-      definationController.text = "";
 
       meanError.value = "";
       wordError.value = "";
       exampleError.value = "";
-      definationError.value = "";
 
       delegate?.onRefreshPage();
       Get.back();
@@ -159,5 +150,37 @@ class UpdateWordLogic extends GetxController {
       print(error);
       StaticMethods.instance.showMessage("", error as String);
     });
+  }
+
+
+  void translateWord() {
+
+
+    service.translateWord(wordController.text,   "tr", "en").then((value) {
+
+      meanController.text = value;
+
+    }).catchError((error) {
+      meanController.text = "";
+    });
+
+  }
+
+  void findIcon() {
+
+    IconService.shared.getIcons(wordController.text).then((value) {
+
+      print(value);
+      if (value != null && value.length > 0 ) {
+        iconUrl.value = value[0].images!.s512!;
+      }  else {
+        iconUrl.value = "";
+      }
+
+    }).catchError((error) {
+      iconUrl.value = "";
+      print(error);
+    });
+
   }
 }

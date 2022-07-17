@@ -13,6 +13,7 @@ class WordModel {
   bool? notification;
   String? createdAt;
   String? updatedAt;
+  String? image_url;
 
   WordModel(
       {this.sId,
@@ -24,7 +25,8 @@ class WordModel {
         this.user,
         this.notification,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.image_url});
 
   factory WordModel.fromJson(Map<String, dynamic> json) {
     return WordModel(
@@ -37,7 +39,8 @@ class WordModel {
     user: json['user'],
     notification: json['notification'],
     createdAt: json['created_at'],
-    updatedAt: json['updated_at']
+    updatedAt: json['updated_at'],
+      image_url: json['image_url']
     );
   }
 

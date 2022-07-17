@@ -42,6 +42,18 @@ class FocusLogic extends GetxController {
     });
   }
 
+  void fetchFocus(bool focus, String wordId, int index) {
+    EasyLoading.show(status: 'loading...');
 
+    service.fetchFocus(focus, wordId).then((value) {
+      EasyLoading.dismiss();
+      wordItems.value[index].focus = focus.toString();
+      wordItems.refresh();
+    }).catchError((error) {
+      EasyLoading.dismiss();
+    });
+
+
+  }
 
 }
