@@ -13,7 +13,7 @@ class StaticMethods {
   void showSnackMessage(String title, String content) {
     Get.snackbar(title, content,
         snackPosition: SnackPosition.TOP,
-        colorText: HexColor.fromHex(("#000000")));
+        colorText: HexColor.fromHex(("#ffffff")),backgroundColor: Color(0xFF262335));
   }
 
   void showMessage(String title, String content) {

@@ -21,6 +21,37 @@ class LoginService {
     }
   }
 
+  Future<String> forgotPassword(String email) async {
+    final result = await service.request(
+      url: "/user/forgotpassword",
+      method: Method.POST,
+      params: {"email": email},
+    );
+
+    final data = BaseResponseModel<String>.onlyJsonParse(json.decode(result.toString()));
+
+    if (data.success) {
+      return data.result!;
+    } else {
+      throw data.error;
+    }
+  }
+
+  Future<String> register(String email, String password) async {
+    final result = await service.request(
+      url: "/user",
+      method: Method.POST,
+      params: {"email": email, "password": password},
+    );
+
+    final data = BaseResponseModel<String>.onlyJsonParse(json.decode(result.toString()));
+
+    if (data.success) {
+      return data.result!;
+    } else {
+      throw data.error;
+    }
+  }
 
   Future<String> updateOneSignalID(String oneSignalID) async {
     final result = await service.request(
@@ -30,6 +61,7 @@ class LoginService {
     );
 
     final data = BaseResponseModel<String>.onlyJsonParse(json.decode(result.toString()));
+
     if (data.success) {
       return data.result!;
     } else {

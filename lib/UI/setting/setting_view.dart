@@ -6,6 +6,7 @@ import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:lingowall/Theme/themeLight.dart';
 import 'package:lingowall/UI/List/list_view.dart';
 import 'package:lingowall/UI/Login/login_view.dart';
+import 'package:lingowall/UI/Login/login_widget.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import 'setting_logic.dart';
@@ -50,7 +51,7 @@ class SettingWidget extends StatelessWidget {
     return SettingsTile.navigation(
       onPressed: (BuildContext context) {
         UserPreferences.instance.signOut();
-        Get.offAll(LoginController());
+        Get.offAll(LoginWidget());
       },
       leading: const Icon(Icons.logout, color: Colors.blue),
       title: const Text('Sign Out'),
@@ -82,7 +83,7 @@ class SettingWidget extends StatelessWidget {
   BottomSheetAction darkThemeButton() {
     return BottomSheetAction(
         title: const Text('Dark', style: TextStyle(color: Colors.blue)),
-        onPressed: () {
+        onPressed: (context) {
           logic.setTheme(ThemeSetting.Dark);
           Get.changeThemeMode(ThemeMode.dark);
           Get.back();
@@ -92,7 +93,7 @@ class SettingWidget extends StatelessWidget {
   BottomSheetAction lightThemeButton() {
     return BottomSheetAction(
         title: const Text('Light', style: TextStyle(color: Colors.blue)),
-        onPressed: () {
+        onPressed: (context) {
           logic.setTheme(ThemeSetting.Light);
           Get.changeThemeMode(ThemeMode.light);
           Get.back();

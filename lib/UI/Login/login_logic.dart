@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:lingowall/Core/service/login_service.dart';
@@ -12,12 +13,14 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 class LoginLogic extends GetxController {
   LoginService service = LoginService();
   var error = StreamController<String>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   void onReady() {
     super.onReady();
     error.stream.listen((event) {
-      StaticMethods.instance.showSnackMessage("", event);
+      StaticMethods.instance.showSnackMessage("LingoCards", event);
     });
   }
 
@@ -29,6 +32,7 @@ class LoginLogic extends GetxController {
 
   void authentication(String email, String password) {
     print("Handle Login Authentication");
+
     EasyLoading.show(status: 'loading...');
     service.login(email, password).then((value)  {
 
@@ -50,12 +54,12 @@ class LoginLogic extends GetxController {
 
     service.updateOneSignalID(playerId).then((value) {
        EasyLoading.dismiss();
-       Get.off(TabbarViewWidget());
+       Get.off(TabbarViewWidget(), transition: Transition.fadeIn);
 
      }).catchError((error) {
 
          EasyLoading.dismiss();
-         Get.off(TabbarViewWidget());
+         Get.off(TabbarViewWidget(), transition: Transition.fadeIn);
      });
 
   }

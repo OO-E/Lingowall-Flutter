@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lingowall/Theme/themeDark.dart';
+import 'package:lingowall/UI/Login/login_widget.dart';
 import 'UI/Tabbar/tabbar_view.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -77,7 +78,7 @@ class FirstLayer extends StatelessWidget {
           : ThemeMode.light,
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: token == "" ? LoginController() : TabbarViewWidget(),
+      home: token == "" ? LoginWidget() : TabbarViewWidget(),
       builder: EasyLoading.init(),
     );
   }

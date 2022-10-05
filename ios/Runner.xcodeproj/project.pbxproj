@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,8 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		DC0BCDBB28BF810800981BCF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DC0BCDBA28BF810800981BCF /* Kingfisher */; };
+		DC0BCDC128BF8F8700981BCF /* BugFinderLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = DC0BCDC028BF8F8700981BCF /* BugFinderLibrary */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,16 +42,6 @@
 				3696BED427FB2A5E00456A0F /* NotificationServiceExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -78,6 +70,7 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4EEF1035BA9FFA591499136 /* Pods_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC76A88228BF710A006BE706 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F64A9EC1B5770D52D9468DF4 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		FB05FFAE8BA32943C07B2E4D /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,6 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC0BCDC128BF8F8700981BCF /* BugFinderLibrary in Frameworks */,
+				DC0BCDBB28BF810800981BCF /* Kingfisher in Frameworks */,
 				90B0E7E5BFCDA5BEB3520FEF /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,6 +170,7 @@
 		E40B4B3FD91B12B99398676C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC76A88228BF710A006BE706 /* Kingfisher.framework */,
 				3F5CBA97565A378F28C6CA5D /* Pods_Runner.framework */,
 				A4EEF1035BA9FFA591499136 /* Pods_NotificationServiceExtension.framework */,
 			);
@@ -211,7 +207,6 @@
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
-				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				D91FB71A9AA37397E852154D /* [CP] Embed Pods Frameworks */,
 				3696BED527FB2A5F00456A0F /* Embed App Extensions */,
@@ -222,6 +217,10 @@
 				3696BED327FB2A5E00456A0F /* PBXTargetDependency */,
 			);
 			name = Runner;
+			packageProductDependencies = (
+				DC0BCDBA28BF810800981BCF /* Kingfisher */,
+				DC0BCDC028BF8F8700981BCF /* BugFinderLibrary */,
+			);
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
@@ -254,6 +253,10 @@
 				Base,
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
+			packageReferences = (
+				DC0BCDB928BF810800981BCF /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				DC0BCDBF28BF8F8700981BCF /* XCRemoteSwiftPackageReference "bug-finder-library" */,
+			);
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -807,6 +810,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DC0BCDB928BF810800981BCF /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		DC0BCDBF28BF8F8700981BCF /* XCRemoteSwiftPackageReference "bug-finder-library" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://gitlab.kocsistem.com.tr/oneframe-mobile/ios/bug-finder-library";
+			requirement = {
+				kind = exactVersion;
+				version = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DC0BCDBA28BF810800981BCF /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC0BCDB928BF810800981BCF /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		DC0BCDC028BF8F8700981BCF /* BugFinderLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC0BCDBF28BF8F8700981BCF /* XCRemoteSwiftPackageReference "bug-finder-library" */;
+			productName = BugFinderLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 97C146E61CF9000F007C117D /* Project object */;
 }

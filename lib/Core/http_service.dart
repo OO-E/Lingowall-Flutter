@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'intercepter.dart';
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
-const BASE_URL = "https://sap64g2oub.execute-api.us-east-1.amazonaws.com";
+const BASE_URL = "https://gaeush4jpg.execute-api.us-east-1.amazonaws.com";
 
 class HttpService {
   Dio _dio = Dio(BaseOptions(

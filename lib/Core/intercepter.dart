@@ -8,6 +8,7 @@ class Intercepter {
   static dynamic requestInterceptor(RequestOptions options, RequestInterceptorHandler handler) {
     String token = UserPreferences.instance.getUserToken();
     options.headers.addAll({"token":token});
+    print(options.data);
     return handler.next(options);
   }
 
