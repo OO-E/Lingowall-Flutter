@@ -1,0 +1,86 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire",
+      "state" : {
+        "revision" : "747c8db8d57b68d5e35275f10c92d55f982adbd4",
+        "version" : "4.9.1"
+      }
+    },
+    {
+      "identity" : "bug-finder-library",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.kocsistem.com.tr/oneframe-mobile/ios/bug-finder-library",
+      "state" : {
+        "revision" : "36e72fb4006a083435e787d56f1c9195f2ebae63",
+        "version" : "2.0.0"
+      }
+    },
+    {
+      "identity" : "crash-stack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://crashstack-token:dbDPRHdjuidRcfdgmsze@gitlab.kocsistem.com.tr/oneframe-mobile/ios/crash-stack",
+      "state" : {
+        "revision" : "140ef8844429041bf7e18690a60dc8872481d079",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "dialog-picker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://dialogpicker-token:_Cj1S3oH-YBBMQx2vf-R@gitlab.kocsistem.com.tr/oneframe-mobile/ios/dialog-picker",
+      "state" : {
+        "revision" : "c0aea889049b09e3d55a2b7f1bcbdac64b3ff9e5",
+        "version" : "1.5.7"
+      }
+    },
+    {
+      "identity" : "image-picker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://imagepicker-token:U6PZA6VaP8W_WMVsDwKQ@gitlab.kocsistem.com.tr/oneframe-mobile/ios/image-picker",
+      "state" : {
+        "revision" : "a42ad87aa3c2d01d73460d9eacea9d9c8e2de888",
+        "version" : "1.0.3"
+      }
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher",
+      "state" : {
+        "revision" : "be1a1acb283a702b99b630f586877ba02234b4cb",
+        "version" : "7.3.2"
+      }
+    },
+    {
+      "identity" : "loading",
+      "kind" : "remoteSourceControl",
+      "location" : "https://loading-token:XxqDFQsb6YTqLncVPeaz@gitlab.kocsistem.com.tr/oneframe-mobile/ios/loading",
+      "state" : {
+        "revision" : "cce87267f91f8902685586fa3c2f1b41268ea743",
+        "version" : "2.0.1"
+      }
+    },
+    {
+      "identity" : "networking",
+      "kind" : "remoteSourceControl",
+      "location" : "https://networking-token:bADoq-YG21CKBs4UZbjG@gitlab.kocsistem.com.tr/oneframe-mobile/ios/networking",
+      "state" : {
+        "revision" : "958f5319f41c86e1c367e7e4492aa072a095358c",
+        "version" : "3.7.2"
+      }
+    },
+    {
+      "identity" : "photoeditor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://photoeditor-token:WrjsdE1zizeLxhx9QLra@gitlab.kocsistem.com.tr/oneframe-mobile/ios/photoeditor",
+      "state" : {
+        "revision" : "4bf0dc0302e1bce504a8df46754b60ea818e13db",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 2
+}

@@ -6,6 +6,7 @@ class UserPreferancesTitle {
   static String INFO = "INFO";
   static String THEME = "THEME";
   static String FLATICON = "FLATICON";
+  static String SELECTED_DECK = "SELECTED_DECK";
 }
 
 enum ThemeSetting {
@@ -23,6 +24,14 @@ class UserPreferences {
 
   static UserPreferences get instance => _instance;
 
+
+  void setSelectedDeck(String deck_id) {
+    this.getStorage.write(UserPreferancesTitle.SELECTED_DECK, deck_id);
+  }
+
+  String getSelectedDeckId() {
+    return this.getStorage.read(UserPreferancesTitle.SELECTED_DECK) ?? "";
+  }
 
   void setFlatIconAccessToken(String token) {
     this.getStorage.write(UserPreferancesTitle.FLATICON, token);
@@ -62,6 +71,7 @@ class UserPreferences {
 
   void signOut() {
 
+    getStorage.remove(UserPreferancesTitle.SELECTED_DECK);
     getStorage.remove(UserPreferancesTitle.TOKEN);
   }
 

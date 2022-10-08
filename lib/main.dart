@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lingowall/Theme/themeDark.dart';
 import 'package:lingowall/UI/Login/login_widget.dart';
@@ -6,16 +7,15 @@ import 'UI/Tabbar/tabbar_view.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'Helper/UserPreferences.dart';
-import 'UI/Login/login_view.dart';
 import 'Theme/themeLight.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  await ScreenUtil.ensureScreenSize();
 
 
   await initOneSignal();
@@ -68,18 +68,35 @@ initOneSignal() async {
 }
 
 class FirstLayer extends StatelessWidget {
+  String selected_deck = UserPreferences.instance.getSelectedDeckId();
   String token = UserPreferences.instance.getUserToken();
+
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      themeMode: UserPreferences.instance.getTheme() == "Dark"
-          ? ThemeMode.dark
-          : ThemeMode.light,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      home: token == "" ? LoginWidget() : TabbarViewWidget(),
-      builder: EasyLoading.init(),
+
+    if (selected_deck == "") {
+      token = "";
+      UserPreferences.instance.signOut();
+    }
+
+    return ScreenUtilInit(
+      //  designSize: Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_) {
+        return GetMaterialApp(
+          themeMode: UserPreferences.instance.getTheme() == "Dark"
+              ? ThemeMode.dark
+              : ThemeMode.light,
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          home: token == "" ? LoginWidget() : TabbarViewWidget(),
+          builder: EasyLoading.init(),
+        );
+      },
     );
+
+
   }
 }

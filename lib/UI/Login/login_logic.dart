@@ -4,14 +4,19 @@ import 'package:get/get.dart';
 import 'package:lingowall/Core/service/login_service.dart';
 import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
+import 'package:lingowall/UI/DeckAdd/deck_add_view.dart';
 import 'dart:async';
 import 'package:lingowall/UI/Tabbar/tabbar_view.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+
+import '../../Core/service/deck_service.dart';
 
 
 
 class LoginLogic extends GetxController {
   LoginService service = LoginService();
+  DeckService deckService = DeckService();
+
   var error = StreamController<String>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -19,6 +24,10 @@ class LoginLogic extends GetxController {
   @override
   void onReady() {
     super.onReady();
+
+    emailController.text = "orhan.oneplus@gmail.com";
+    passwordController.text = "123456";
+
     error.stream.listen((event) {
       StaticMethods.instance.showSnackMessage("LingoCards", event);
     });
@@ -47,19 +56,43 @@ class LoginLogic extends GetxController {
     });
   }
 
+  void getDeckList() async{
+
+    deckService.getDeckList().then((result) {
+
+      EasyLoading.dismiss();
+      if (result.length == 0) {
+        //Deck yoksa deck ekleme ekranına gidicek.
+        Get.off(DeckAddPage(),transition: Transition.fadeIn);
+      } else {
+        if (UserPreferences.instance.getSelectedDeckId() == "") {
+          //Seçilmiş bi deck id yok o zaman ilk deck id kullanılır.
+          UserPreferences.instance.setSelectedDeck(result[0].sId!);
+        }
+
+        Get.off(TabbarViewWidget(), transition: Transition.fadeIn);
+      }
+
+
+    }).catchError((error) {
+      EasyLoading.dismiss();
+      Get.off(TabbarViewWidget(), transition: Transition.fadeIn);
+    });
+
+  }
 
   void getOneSignalID()  async {
     var deviceState =  await OneSignal.shared.getDeviceState();
     var playerId = deviceState!.userId!;
 
     service.updateOneSignalID(playerId).then((value) {
-       EasyLoading.dismiss();
-       Get.off(TabbarViewWidget(), transition: Transition.fadeIn);
+
+      getDeckList();
 
      }).catchError((error) {
 
-         EasyLoading.dismiss();
-         Get.off(TabbarViewWidget(), transition: Transition.fadeIn);
+       getDeckList();
+
      });
 
   }
