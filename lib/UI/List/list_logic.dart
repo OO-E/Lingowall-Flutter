@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lingowall/Core/model/word_model.dart';
+import 'package:lingowall/Core/service/deck_service.dart';
 import 'package:lingowall/Core/service/icon_service.dart';
 import 'package:lingowall/Core/service/word_service.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ListLogic extends GetxController   {
 
+  DeckService deckService = DeckService();
   WordService service = WordService();
   var error = StreamController<String>();
   var wordItems = <WordModel>[].obs;
@@ -19,6 +21,9 @@ class ListLogic extends GetxController   {
   void onReady() {
 
     super.onReady();
+
+
+
     error.stream.listen((event) {
       StaticMethods.instance.showSnackMessage("", event);
     });
@@ -36,8 +41,10 @@ class ListLogic extends GetxController   {
   }
 
 
-  void getWords(num page) {
+  void getWords(num page) async {
     EasyLoading.show(status: 'loading...');
+
+    await deckService.getDeckList();
 
     service.wordList(page).then((value) {
       wordItems.value = value;

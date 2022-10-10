@@ -117,25 +117,23 @@ class UpdateWordController extends StatelessWidget {
 
   Container updateButton(BuildContext context) {
     return Container(
-        width: double.infinity,
-        height: 50,
-        child: TextButton(
-          style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color>(Colors.deepOrangeAccent),
-            foregroundColor: MaterialStateProperty.all<Color>(
-              Theme.of(context).colorScheme.primaryVariant,
-            ),
+      width: double.infinity,
+      height: 50,
+      child: TextButton(
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Colors.deepOrangeAccent),
+          foregroundColor: MaterialStateProperty.all<Color>(
+            Theme.of(context).colorScheme.primaryVariant,
           ),
-          child: Text('Update'.tr),
-          onPressed: () {
-            logic.fetchUpdate();
-          },
-        ));
+        ),
+        child: Text('Update'.tr),
+        onPressed: () {
+          logic.fetchUpdate();
+        },
+      ),
+    );
   }
-
-
-
 
   Container icon(BuildContext context) {
     ImageProvider image;
@@ -146,8 +144,6 @@ class UpdateWordController extends StatelessWidget {
       image = AssetImage("assets/photos.png");
     }
 
-
-
     return Container(
       width: double.infinity,
       height: 100,
@@ -155,7 +151,6 @@ class UpdateWordController extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
         child: Image(
           image: image,
-
         ),
       ),
     );
@@ -169,7 +164,7 @@ class UpdateWordController extends StatelessWidget {
         controller: logic.exampleController,
         decoration: InputDecoration(
             labelStyle:
-            TextStyle(color: Theme.of(context).colorScheme.secondary),
+                TextStyle(color: Theme.of(context).colorScheme.secondary),
             border: InputBorder.none,
             labelText: "Example",
             errorText: logic.exampleError.value,
@@ -201,7 +196,7 @@ class UpdateWordController extends StatelessWidget {
         controller: logic.meanController,
         decoration: InputDecoration(
             labelStyle:
-            TextStyle(color: Theme.of(context).colorScheme.secondary),
+                TextStyle(color: Theme.of(context).colorScheme.secondary),
             border: InputBorder.none,
             labelText: "Mean",
             errorText: logic.meanError.value,
@@ -220,9 +215,7 @@ class UpdateWordController extends StatelessWidget {
             focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),
               borderSide: BorderSide(width: 1, color: Vx.blue500),
-            )
-        ),
-
+            )),
       ),
     );
   }
@@ -235,7 +228,7 @@ class UpdateWordController extends StatelessWidget {
         style: Theme.of(context).textTheme.headline3,
         decoration: InputDecoration(
             labelStyle:
-            TextStyle(color: Theme.of(context).colorScheme.secondary),
+                TextStyle(color: Theme.of(context).colorScheme.secondary),
             border: InputBorder.none,
             labelText: "Word",
             errorText: logic.wordError.value,
@@ -254,17 +247,14 @@ class UpdateWordController extends StatelessWidget {
             focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),
               borderSide: BorderSide(width: 1, color: Vx.blue500),
-            )
-        ),
+            )),
         onChanged: (value) {
           _debouncer.run(() {
             logic.translateWord();
             logic.findIcon();
           });
         },
-
       ),
     );
   }
-
 }

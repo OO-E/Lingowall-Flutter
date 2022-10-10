@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lingowall/Core/service/deck_service.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../Helper/Debouncer.dart';
@@ -148,7 +149,7 @@ class AddAndUpdateController extends StatelessWidget {
             labelStyle:
                 TextStyle(color: Theme.of(context).colorScheme.secondary),
             border: InputBorder.none,
-            labelText: "Mean",
+            labelText: DeckService.nativeLanguage,
             errorText: logic.meanError.value,
             focusedErrorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -182,7 +183,7 @@ class AddAndUpdateController extends StatelessWidget {
             labelStyle:
                 TextStyle(color: Theme.of(context).colorScheme.secondary),
             border: InputBorder.none,
-            labelText: "Word",
+            labelText: DeckService.learnLanguage,
             errorText: logic.wordError.value,
             focusedErrorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),

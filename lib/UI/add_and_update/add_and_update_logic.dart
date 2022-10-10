@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:lingowall/Core/service/deck_service.dart';
 import 'package:lingowall/Core/service/icon_service.dart';
 import 'package:lingowall/Core/service/word_service.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
@@ -68,7 +69,8 @@ class Add_and_updateLogic extends GetxController {
 
       }).catchError((error) {
         print(error);
-        StaticMethods.instance.showMessage("", error as String);
+
+        StaticMethods.instance.showMessage("", error);
       });
     }
   }
@@ -76,7 +78,12 @@ class Add_and_updateLogic extends GetxController {
   void translateWord() {
 
 
-    service.translateWord(wordController.text,   "tr", "en").then((value) {
+    var wantTo = DeckService.deck?.wantTo ?? "";
+    var native = DeckService.deck?.native ?? "";
+
+    print("özgün want " + wantTo);
+    print("özgün native " + native);
+    service.translateWord(wordController.text,   native, wantTo).then((value) {
 
       meanController.text = value;
 

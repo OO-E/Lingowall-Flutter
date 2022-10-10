@@ -38,8 +38,8 @@ dependencies:
   velocity_x: ^3.3.0
   settings_ui: 2.0.2
   adaptive_action_sheet: ^2.0.1
-  firebase_core: ^1.19.2
-  firebase_analytics: ^9.2.0
+  firebase_core: 1.19.2
+  firebase_analytics: 9.2.0
   focus_detector: ^2.0.1
   flutter_screenutil: 5.4.0
   logger: 1.1.0

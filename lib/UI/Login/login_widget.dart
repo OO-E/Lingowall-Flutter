@@ -64,7 +64,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                       _buildLoginBtn(),
                       //_buildSignInWithText(),
                       //_buildSocialBtnRow(),
+
                       _buildSignupBtn(),
+
                     ],
                   ),
                 ),

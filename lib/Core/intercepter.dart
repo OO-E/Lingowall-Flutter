@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:get/get.dart' as Get;
+import 'package:lingowall/UI/Login/login_widget.dart';
 import 'package:lingowall/UI/login/login_view.dart';
 
 class Intercepter {
@@ -18,7 +19,7 @@ class Intercepter {
     print(response.data);
     if (response.statusCode == 401) {
       UserPreferences.instance.setUserToken("");
-      Get.Get.offAll(LoginController());
+      Get.Get.offAll(LoginWidget());
     }
     return handler.next(response);
   }

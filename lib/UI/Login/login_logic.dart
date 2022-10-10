@@ -69,11 +69,8 @@ class LoginLogic extends GetxController {
           //Seçilmiş bi deck id yok o zaman ilk deck id kullanılır.
           UserPreferences.instance.setSelectedDeck(result[0].sId!);
         }
-
         Get.off(TabbarViewWidget(), transition: Transition.fadeIn);
       }
-
-
     }).catchError((error) {
       EasyLoading.dismiss();
       Get.off(TabbarViewWidget(), transition: Transition.fadeIn);
@@ -83,17 +80,24 @@ class LoginLogic extends GetxController {
 
   void getOneSignalID()  async {
     var deviceState =  await OneSignal.shared.getDeviceState();
-    var playerId = deviceState!.userId!;
 
-    service.updateOneSignalID(playerId).then((value) {
-
+    if (deviceState == null) {
       getDeckList();
+    } else {
+      var playerId = deviceState!.userId ?? "";
 
-     }).catchError((error) {
 
-       getDeckList();
+      service.updateOneSignalID(playerId).then((value) {
 
-     });
+        getDeckList();
+
+      }).catchError((error) {
+
+        getDeckList();
+
+      });
+    }
+
 
   }
 }

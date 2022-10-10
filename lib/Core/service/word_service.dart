@@ -6,12 +6,16 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:async';
 
+import 'package:lingowall/Helper/UserPreferences.dart';
+
 class WordService {
   HttpService service = HttpService().init();
 
   Future<List<WordModel>> wordFocusList() async {
+    var deck_id = UserPreferences.instance.getSelectedDeckId();
+
     final result =
-        await service.request(url: "/word/focus", method: Method.GET);
+        await service.request(url: "/word/focus/" + deck_id, method: Method.GET);
     final data = BaseListResponseModel<WordModel>.fromJson(
         json.decode(result.toString()), (data) => WordModel.fromJson(data));
     if (data.success) {
@@ -22,8 +26,11 @@ class WordService {
   }
 
   Future<List<WordModel>> wordList(num page) async {
+
+    var deck_id = UserPreferences.instance.getSelectedDeckId();
+
     final result = await service.request(
-        url: "/word/myword/" + page.toString() + "/75", method: Method.GET);
+        url: "/word/myword/" + page.toString() + "/75/" + deck_id, method: Method.GET);
     final data = BaseListResponseModel<WordModel>.fromJson(
         json.decode(result.toString()), (data) => WordModel.fromJson(data));
     if (data.success) {
@@ -42,7 +49,7 @@ class WordService {
 
     final data = BaseResponseModel<String>.onlyJsonParse(
         json.decode(result.toString()));
-    print("ooeee");
+
     if (data.success) {
       return data.result ?? "ok";
     } else {
@@ -52,10 +59,12 @@ class WordService {
 
   Future<String> fetchNewWord(String word, String meaning, String example, String icon_url) async {
 
+    String deck_id = UserPreferences.instance.getSelectedDeckId();
+
     final result = await service.request(
         url: "/word",
         method: Method.POST,
-        params: {"word": word, "meaning": meaning, "image_url": icon_url, "example": example});
+        params: {"word": word, "meaning": meaning, "image_url": icon_url, "example": example, "deck_id": deck_id});
 
     final data = BaseResponseModel<String>.onlyJsonParse(
         json.decode(result.toString()));
@@ -120,8 +129,10 @@ class WordService {
   }
 
   Future<int> wordCount() async {
+    String deck_id = UserPreferences.instance.getSelectedDeckId();
+
     final result =
-        await service.request(url: "/word/count", method: Method.GET);
+        await service.request(url: "/word/count/" + deck_id, method: Method.GET);
 
     final data =
         BaseResponseModel<int>.onlyJsonParse(json.decode(result.toString()));
