@@ -29,13 +29,6 @@
             {
               "client_id": "68172250851-jidnvi4cu207qlsk6kv1rbeeon6plhvd.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "68172250851-guve0j38h1g5ooolqa3rpk3k0ree7fmr.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.lingowall"
-              }
             }
           ]
         }

@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:ui';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:lingowall/Core/model/country_list_model.dart';
 import 'package:lingowall/Core/service/deck_service.dart';
@@ -52,13 +53,14 @@ class DeckAddLogic extends GetxController {
   void saveRequest() {
 
     if (this.isSendRequest()) {
-
+      EasyLoading.show(status: 'loading...');
       service.saveDeck(wantTo.value.code!, native.value.code!).then((value) {
-
+        EasyLoading.dismiss();
         UserPreferences.instance.setSelectedDeck(value.sId!);
         Get.off(TabbarViewWidget(), transition: Transition.fadeIn);
 
       }).catchError((error) {
+        EasyLoading.dismiss();
         StaticMethods.instance.showSnackMessage("LingoCards", error);
       });
       

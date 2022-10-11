@@ -8,6 +8,11 @@ import 'dart:async';
 import 'dart:core';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+enum ViewShowType {
+  dataView,
+  emptyView,
+  firstLoading
+}
 
 class ListLogic extends GetxController   {
 
@@ -17,12 +22,11 @@ class ListLogic extends GetxController   {
   var wordItems = <WordModel>[].obs;
   var pageCount = 1.obs;
 
+  var viewShowType = ViewShowType.firstLoading.obs;
+
   @override
   void onReady() {
-
     super.onReady();
-
-
 
     error.stream.listen((event) {
       StaticMethods.instance.showSnackMessage("", event);
@@ -42,12 +46,18 @@ class ListLogic extends GetxController   {
 
 
   void getWords(num page) async {
-    EasyLoading.show(status: 'loading...');
+    EasyLoading.show(status: 'loading...',maskType: EasyLoadingMaskType.custom);
 
     await deckService.getDeckList();
 
     service.wordList(page).then((value) {
       wordItems.value = value;
+
+      if (wordItems.value.length == 0 && page == 0) {
+        viewShowType.value = ViewShowType.emptyView;
+      } else {
+        viewShowType.value = ViewShowType.dataView;
+      }
 
       EasyLoading.dismiss();
     }).catchError((error)  {

@@ -37,9 +37,9 @@ class _DeckAddPageState extends State<DeckAddPage> with CountryDelegate {
                     .w(50)
                     .h(50)
                     .paddingOnly(left: 10),
-                (logic.wantTo.value.title ?? "Select Language")
+                (logic.wantTo.value.title ?? "Select You Want To Language")
                     .text
-                    .size(20)
+                    .size(16)
                     .make()
                     .paddingOnly(left: 10)
               ]),
@@ -64,9 +64,9 @@ class _DeckAddPageState extends State<DeckAddPage> with CountryDelegate {
                     .w(50)
                     .h(50)
                     .paddingOnly(left: 10),
-                (logic.native.value.title ?? "Select Language")
+                (logic.native.value.title ?? "Select Your Native Language")
                     .text
-                    .size(20)
+                    .size(16)
                     .make()
                     .paddingOnly(left: 10)
               ]),

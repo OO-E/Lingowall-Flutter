@@ -5,11 +5,14 @@ import 'dart:async';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:lingowall/Helper/StaticMethods.dart';
 
+import '../List/list_logic.dart';
+
 class FocusLogic extends GetxController {
 
   WordService service = WordService();
   var error = StreamController<String>();
   var wordItems = <WordModel>[].obs;
+  var viewShowType = ViewShowType.firstLoading.obs;
 
 
   @override
@@ -35,6 +38,11 @@ class FocusLogic extends GetxController {
 
     service.wordFocusList().then((value) {
       wordItems.value = value.reversed.toList();
+      if (wordItems.value.length == 0) {
+        viewShowType.value = ViewShowType.emptyView;
+      } else {
+        viewShowType.value = ViewShowType.dataView;
+      }
       EasyLoading.dismiss();
     }).catchError((error)  {
       EasyLoading.dismiss();

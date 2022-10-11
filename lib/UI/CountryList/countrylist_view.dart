@@ -33,7 +33,7 @@ class _CountrylistPageState extends State<CountrylistPage> {
               var item = logic.country[index];
               return CountryItem(item).paddingOnly(left: 12,right: 12, top: 8);
               // return WordCell2(logic.wordItems[index], context);
-            });
+            }).backgroundColor(Vx.white);
       }),
       ),
     );
