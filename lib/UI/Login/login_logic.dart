@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -79,24 +81,31 @@ class LoginLogic extends GetxController {
   }
 
   void getOneSignalID()  async {
-    var deviceState =  await OneSignal.shared.getDeviceState();
 
-    if (deviceState == null) {
-      getDeckList();
+    if (Platform.isAndroid || Platform.isIOS) {
+      var deviceState =  await OneSignal.shared.getDeviceState();
+
+      if (deviceState == null) {
+        getDeckList();
+      } else {
+        var playerId = deviceState!.userId ?? "";
+
+
+        service.updateOneSignalID(playerId).then((value) {
+
+          getDeckList();
+
+        }).catchError((error) {
+
+          getDeckList();
+
+        });
+      }
     } else {
-      var playerId = deviceState!.userId ?? "";
-
-
-      service.updateOneSignalID(playerId).then((value) {
-
-        getDeckList();
-
-      }).catchError((error) {
-
-        getDeckList();
-
-      });
+      getDeckList();
     }
+
+
 
 
   }

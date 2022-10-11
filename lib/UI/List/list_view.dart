@@ -13,6 +13,8 @@ import 'package:lingowall/UI/List/list_logic.dart';
 import 'package:lingowall/UI/Cell/WordCell.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../UpdateWord/updateword_view.dart';
+
 class ListViewWidget extends StatelessWidget with UIDelegate {
   ListViewWidget({Key? key}) : super(key: key);
 
@@ -140,6 +142,13 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
     logic.getWordsCount();
   }
 
+  void tabbarRefresh() {
+    if (logic.wordItems.value.length == 0) {
+      logic.getWords(0);
+      logic.getWordsCount();
+    }
+  }
+
   ListTile WordCell2(WordModel item, BuildContext context, int index) {
     ImageProvider image;
 
@@ -185,9 +194,9 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
           },
         ),
         onTap: () {
-          //  var updateScreen = UpdateWordController();
-          //  updateScreen.trigger(item, this);
-          //  Get.to(updateScreen);
+            var updateScreen = UpdateWordController();
+            updateScreen.trigger(item, this);
+            Get.to(updateScreen);
         });
   }
 }

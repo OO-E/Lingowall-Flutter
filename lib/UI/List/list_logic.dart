@@ -46,7 +46,7 @@ class ListLogic extends GetxController   {
 
 
   void getWords(num page) async {
-    EasyLoading.show(status: 'loading...',maskType: EasyLoadingMaskType.custom);
+    EasyLoading.show(status: 'loading...');
 
     await deckService.getDeckList();
 

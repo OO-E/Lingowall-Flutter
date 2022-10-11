@@ -18,7 +18,7 @@ class TabbarViewWidget extends StatelessWidget {
 
   Widget getScreen(int index) {
     if (index == 0) {
-
+      firstScreen.tabbarRefresh();
       return firstScreen;
     } else if (index == 1) {
       return secondScreen;

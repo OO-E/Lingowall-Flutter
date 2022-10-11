@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,7 +20,9 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
 
 
-  await initOneSignal();
+  if (Platform.isIOS || Platform.isAndroid) {
+    await initOneSignal();
+  }
 
   await GetStorage.init();
 
@@ -28,10 +32,12 @@ void main() async {
 initOneSignal() async {
   print("init oneSignal");
 
-  await OneSignal.shared.setRequiresUserPrivacyConsent(true);
-  await OneSignal.shared.consentGranted(true);
+  if (Platform.isIOS || Platform.isAndroid) {
+    await OneSignal.shared.setRequiresUserPrivacyConsent(true);
+    await OneSignal.shared.consentGranted(true);
+    await OneSignal.shared.setAppId("ceb3cf3e-988c-41ff-a31e-66697949e1f2");
+  }
 
-  await OneSignal.shared.setAppId("ceb3cf3e-988c-41ff-a31e-66697949e1f2");
 
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
