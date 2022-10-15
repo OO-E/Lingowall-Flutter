@@ -90,7 +90,7 @@ class FirstLayer extends StatelessWidget {
       //  designSize: Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_) {
+      builder: (context, child) {
         return GetMaterialApp(
           themeMode: UserPreferences.instance.getTheme() == "Dark"
               ? ThemeMode.dark

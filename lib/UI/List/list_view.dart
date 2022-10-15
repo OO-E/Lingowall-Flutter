@@ -38,11 +38,9 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
             )
           ],
         ),
-        body: SafeArea(
-            child: Obx(() {
-              return ViewFactory(context);
-            })
-        ));
+        body: SafeArea(child: Obx(() {
+          return ViewFactory(context);
+        })));
   }
 
   Widget ViewFactory(BuildContext context) {
@@ -55,7 +53,6 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
     }
   }
 
-
   Widget EmptyView(BuildContext context) {
     return VStack([
       SizedBox(
@@ -64,31 +61,17 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
       Icon(
         Icons.language,
         size: 100,
-        color: Theme
-            .of(context)
-            .primaryColor,
-      )
-          .w(100)
-          .h(100)
-          .centered()
-          .box
-          .make(),
+        color: Theme.of(context).primaryColor,
+      ).w(100).h(100).centered().box.make(),
       const SizedBox(
         height: 32,
       ),
       Text(
         "You don't have any word in \nyour ${DeckService.learnLanguage} deck",
-        style: Theme
-            .of(context)
-            .textTheme
-            .headline1,
+        style: Theme.of(context).textTheme.headline1,
         textAlign: TextAlign.center,
       ).centered(),
-    ])
-        .w(1.0.sw)
-        .h(1.0.sh)
-        .box
-        .make();
+    ]).w(1.0.sw).h(1.0.sh).box.make();
   }
 
   Column MainView(BuildContext context) {
@@ -96,35 +79,25 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
       children: [
         Flexible(
             child: Obx(
-                  () =>
-                  ListView.builder(
-                      itemCount: logic.wordItems.length,
-                      itemBuilder: (context, index) {
-                        return WordCell2(
-                            logic.wordItems[index], context, index);
-                        // return WordCell2(logic.wordItems[index], context);
-                      }),
-            )),
+          () => ListView.builder(
+              itemCount: logic.wordItems.length,
+              itemBuilder: (context, index) {
+                return WordCell2(logic.wordItems[index], context, index);
+                // return WordCell2(logic.wordItems[index], context);
+              }),
+        )),
         Obx(() {
           return Container(
               height: 50,
               child: NumberPaginator(
-                buttonUnselectedForegroundColor:
-                Theme
-                    .of(context)
-                    .colorScheme
-                    .primaryVariant,
-                buttonSelectedBackgroundColor:
-                Theme
-                    .of(context)
-                    .colorScheme
-                    .secondary,
-                buttonSelectedForegroundColor:
-                Theme
-                    .of(context)
-                    .colorScheme
-                    .secondaryVariant,
-                height: 50,
+                config: NumberPaginatorUIConfig(
+                  buttonUnselectedForegroundColor:
+                      Theme.of(context).colorScheme.primaryVariant,
+                  buttonSelectedBackgroundColor:
+                      Theme.of(context).colorScheme.secondary,
+                  buttonSelectedForegroundColor:
+                      Theme.of(context).colorScheme.secondaryVariant,
+                ),
                 numberPages: logic.pageCount.value,
                 onPageChange: (int index) {
                   logic.getWords(index);
@@ -162,16 +135,10 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
         dense: true,
         visualDensity: VisualDensity(vertical: 2),
         title: Text(item.word ?? "-",
-            style: Theme
-                .of(context)
-                .textTheme
-                .headline1),
+            style: Theme.of(context).textTheme.headline1),
         subtitle: Text(
           item.meaning ?? "",
-          style: Theme
-              .of(context)
-              .textTheme
-              .headline2,
+          style: Theme.of(context).textTheme.headline2,
         ),
         enabled: true,
         leading: ConstrainedBox(
@@ -194,9 +161,9 @@ class ListViewWidget extends StatelessWidget with UIDelegate {
           },
         ),
         onTap: () {
-            var updateScreen = UpdateWordController();
-            updateScreen.trigger(item, this);
-            Get.to(updateScreen);
+          var updateScreen = UpdateWordController();
+          updateScreen.trigger(item, this);
+          Get.to(updateScreen);
         });
   }
 }

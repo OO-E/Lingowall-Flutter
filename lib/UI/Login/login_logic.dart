@@ -88,7 +88,7 @@ class LoginLogic extends GetxController {
       if (deviceState == null) {
         getDeckList();
       } else {
-        var playerId = deviceState!.userId ?? "";
+        var playerId = deviceState.userId ?? "";
 
 
         service.updateOneSignalID(playerId).then((value) {

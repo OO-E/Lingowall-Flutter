@@ -175,11 +175,10 @@ class _LoginWidgetState extends State<LoginWidget> {
   Widget _buildForgotPasswordBtn() {
     return Container(
       alignment: Alignment.centerRight,
-      child: FlatButton(
+      child: TextButton(
         onPressed: () {
            Get.to(Forget_passwordWidget(), transition: Transition.native);
         },
-        padding: EdgeInsets.only(right: 0.0),
         child: Text(
           'Forgot Password?',
           style: kLabelStyle,
@@ -220,18 +219,12 @@ class _LoginWidgetState extends State<LoginWidget> {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
-      child: RaisedButton(
-        elevation: 5.0,
+      child: ElevatedButton(
         onPressed: () {
           // logic.fetchLogin();
           logic.authentication(logic.emailController.text,
               logic.passwordController.text);
         },
-        padding: EdgeInsets.all(15.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        color: Colors.white,
         child: const Text(
           'LOGIN',
           style: TextStyle(
