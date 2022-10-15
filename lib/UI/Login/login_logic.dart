@@ -59,7 +59,7 @@ class LoginLogic extends GetxController {
   }
 
   void getDeckList() async{
-
+    
     deckService.getDeckList().then((result) {
 
       EasyLoading.dismiss();
@@ -94,6 +94,7 @@ class LoginLogic extends GetxController {
         service.updateOneSignalID(playerId).then((value) {
 
           getDeckList();
+
 
         }).catchError((error) {
 

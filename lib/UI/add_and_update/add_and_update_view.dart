@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import 'package:lingowall/Core/service/deck_service.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../../Delegate/UIDelegate.dart';
 import '../../Helper/Debouncer.dart';
 import 'add_and_update_logic.dart';
 
-class AddAndUpdateController extends StatelessWidget {
+class AddAndUpdateController extends StatelessWidget with UIDelegate {
   AddAndUpdateController({Key? key}) : super(key: key);
 
   final logic = Get.put(Add_and_updateLogic());
@@ -211,6 +212,16 @@ class AddAndUpdateController extends StatelessWidget {
 
       ),
     );
+  }
+
+
+
+  @override
+  void onRefreshPage() {
+    // TODO: implement onRefreshPage
+    logic.exampleController.text = "";
+    logic.meanController.text = "";
+    logic.wordController.text = "";
   }
 
 

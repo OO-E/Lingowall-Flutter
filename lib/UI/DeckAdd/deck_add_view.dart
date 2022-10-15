@@ -88,7 +88,8 @@ class _DeckAddPageState extends State<DeckAddPage> with CountryDelegate {
               onPressed: () {
                 logic.saveRequest();
               },
-            ).w(0.8.sw).h(56).paddingOnly(top: 30)
+            ).w(0.8.sw).h(56).paddingOnly(top: 30),
+
           ]);
         }).objectTopCenter().paddingOnly(top: 64).box.gray50.make(),
       ),

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:lingowall/Helper/UserPreferences.dart';
 import 'package:get/get.dart' as Get;
 import 'package:lingowall/UI/Login/login_widget.dart';
@@ -18,6 +19,7 @@ class Intercepter {
     print(response.realUri);
     print(response.data);
     if (response.statusCode == 401) {
+      EasyLoading.dismiss();
       UserPreferences.instance.setUserToken("");
       Get.Get.offAll(LoginWidget());
     }
