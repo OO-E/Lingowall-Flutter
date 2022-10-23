@@ -28,7 +28,7 @@ class LoginLogic extends GetxController {
     super.onReady();
 
     emailController.text = "orhan.oneplus@gmail.com";
-    passwordController.text = "123456";
+    passwordController.text = "qaz111111";
 
     error.stream.listen((event) {
       StaticMethods.instance.showSnackMessage("LingoCards", event);
